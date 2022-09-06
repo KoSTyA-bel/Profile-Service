@@ -1,0 +1,53 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfilerService.Grpc", "src\ProfilerService.Grpc\ProfilerService.Grpc.csproj", "{01919936-D03D-435F-BF97-CF3F05D4FA36}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfilerService.DLL", "src\ProfilerService.DLL\ProfilerService.DLL.csproj", "{2CB77049-6B7C-4BF7-B58C-B3B1F4BF7560}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfilerService.BLL", "src\ProfilerService.BLL\ProfilerService.BLL.csproj", "{38FD15F2-7402-4D7E-A73E-AC44E8F6E694}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{ABC9355B-B7D8-444E-B003-BCB1517EDC85}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "migrator", "migrator", "{EDDAA816-6AA2-4B7F-B5EC-DD4454EA35CA}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfilerService.Migrator", "migrator\ProfilerService.Migrator\ProfilerService.Migrator.csproj", "{D092E655-6BF6-4BF9-A25B-D949CE8142C2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{01919936-D03D-435F-BF97-CF3F05D4FA36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01919936-D03D-435F-BF97-CF3F05D4FA36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01919936-D03D-435F-BF97-CF3F05D4FA36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01919936-D03D-435F-BF97-CF3F05D4FA36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CB77049-6B7C-4BF7-B58C-B3B1F4BF7560}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CB77049-6B7C-4BF7-B58C-B3B1F4BF7560}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CB77049-6B7C-4BF7-B58C-B3B1F4BF7560}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CB77049-6B7C-4BF7-B58C-B3B1F4BF7560}.Release|Any CPU.Build.0 = Release|Any CPU
+		{38FD15F2-7402-4D7E-A73E-AC44E8F6E694}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{38FD15F2-7402-4D7E-A73E-AC44E8F6E694}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{38FD15F2-7402-4D7E-A73E-AC44E8F6E694}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{38FD15F2-7402-4D7E-A73E-AC44E8F6E694}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D092E655-6BF6-4BF9-A25B-D949CE8142C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D092E655-6BF6-4BF9-A25B-D949CE8142C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D092E655-6BF6-4BF9-A25B-D949CE8142C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D092E655-6BF6-4BF9-A25B-D949CE8142C2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{01919936-D03D-435F-BF97-CF3F05D4FA36} = {ABC9355B-B7D8-444E-B003-BCB1517EDC85}
+		{2CB77049-6B7C-4BF7-B58C-B3B1F4BF7560} = {ABC9355B-B7D8-444E-B003-BCB1517EDC85}
+		{38FD15F2-7402-4D7E-A73E-AC44E8F6E694} = {ABC9355B-B7D8-444E-B003-BCB1517EDC85}
+		{D092E655-6BF6-4BF9-A25B-D949CE8142C2} = {EDDAA816-6AA2-4B7F-B5EC-DD4454EA35CA}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C12AF002-4448-4C9E-9074-44A53B4553E7}
+	EndGlobalSection
+EndGlobal

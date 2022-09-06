@@ -1,0 +1,85 @@
+syntax = "proto3";
+
+option csharp_namespace = "Service.Grpc";
+
+package profiler_service;
+
+service ProfilerService {
+	rpc GetByDiscordId (GetByDiscordIdRequest)
+	returns (GetByDiscordIdResponse);
+
+	rpc GetRangeOfProfiles (GetRangeOfProfilesRequest)
+	returns (GetRangeOfProfilesResponse);
+
+	rpc CreateProfile (CreateProfileRequest) 
+	returns (CreateProfileResponse);
+
+	rpc DeleteUser (DeleteUserRequest)
+	returns (DeleteUserResponse);
+
+	rpc DepositPoints (DepositPointsRequest)
+	returns (DepositPointsResponse);
+
+	rpc WithdrawPoints (WithdrawPointsRequest)
+	returns (WithdrawPointsResponse);
+}
+
+message GetByDiscordIdRequest {
+	string discordId = 1;
+}
+
+message GetRangeOfProfilesRequest {
+	int32 startPosition = 1;
+	int32 count = 2;
+}
+
+message CreateProfileRequest {
+	string discordId = 1;
+}
+
+message DeleteUserRequest {
+	string discordId = 1;
+}
+
+message DepositPointsRequest {
+	string discordId = 1;
+	double points = 2;
+}
+
+message WithdrawPointsRequest {
+	string discordId = 1;
+	double points = 2;
+}
+
+message GetByDiscordIdResponse {
+	Profile profile = 1;
+}
+
+message GetRangeOfProfilesResponse {
+	repeated Profile profiles = 1;
+}
+
+message CreateProfileResponse {
+}
+
+message DeleteUserResponse {
+}
+
+message DepositPointsResponse {
+	StatusType status = 1;
+}
+
+message WithdrawPointsResponse {
+	StatusType status = 1;
+}
+
+enum StatusType {
+	STATUS_TYPE_UNSPECIFIED = 0;
+	STATUS_TYPE_SUCCESS = 1;
+	STATUS_TYPE_FAILED = 2;
+}
+
+message Profile {
+	string discordId = 1;
+	double points = 2;
+}
