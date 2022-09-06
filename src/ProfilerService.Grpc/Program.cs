@@ -1,6 +1,10 @@
+using ProfilerService.Grpc;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddGrpc();
+
+builder.Services.AddAutoMapper(typeof(MappingProfile));
 
 var app = builder.Build();
 
