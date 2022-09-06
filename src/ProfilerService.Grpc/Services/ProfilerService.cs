@@ -2,7 +2,7 @@
 using Grpc.Core;
 using ProfilerService.BLL.Interfaces;
 using Service.Grpc;
-using Prof = ProfilerService.BLL.Entities.Profile;
+using BusinessModels = ProfilerService.BLL.Entities;
 
 namespace ProfilerService.Grpc.Services;
 
@@ -19,7 +19,7 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
 
     public override async Task<CreateProfileResponse> CreateProfile(CreateProfileRequest request, ServerCallContext context)
     {
-        var profile = _mapper.Map<Prof>(request);
+        var profile = _mapper.Map<BusinessModels.Profile>(request);
 
         await _service.Create(profile);
 
@@ -28,7 +28,7 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
 
     public override async Task<DeleteUserResponse> DeleteUser(DeleteUserRequest request, ServerCallContext context)
     {
-        var discordId = _mapper.Map<ulong>(request);
+        var discordId = _mapper.Map<ulong>(request.DiscordId);
 
         await _service.Delete(discordId);
 
@@ -37,6 +37,7 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
 
     public override async Task<DepositPointsResponse> DepositPoints(DepositPointsRequest request, ServerCallContext context)
     {
+        // TODO: magic parse
         var res = await _service.DepositPoints(ulong.Parse(request.DiscordId), request.Points);
 
         return new DepositPointsResponse()
@@ -64,11 +65,7 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
         var profiles = await _service.GetProfiles(request.StartPosition, request.Count);
 
         var grpcProfiles = new List<Service.Grpc.Profile>();
-
-        foreach (var profile in profiles)
-        {
-            grpcProfiles.Add(_mapper.Map<Service.Grpc.Profile>(profile));
-        }
+        grpcProfiles.AddRange(_mapper.Map<List<Service.Grpc.Profile>>(profiles));
 
         var response = new GetRangeOfProfilesResponse();
         response.Profiles.AddRange(grpcProfiles);
@@ -78,6 +75,7 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
 
     public override async Task<WithdrawPointsResponse> WithdrawPoints(WithdrawPointsRequest request, ServerCallContext context)
     {
+        // todo magic
         var res = await _service.WithdrawPoints(ulong.Parse(request.DiscordId), request.Points);
 
         return new WithdrawPointsResponse()

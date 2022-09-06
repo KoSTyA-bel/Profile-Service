@@ -4,9 +4,10 @@ namespace ProfilerService.BLL.Interfaces;
 
 public interface IProfileRepository
 {
-    public Task<Profile> GetByDiscordId(ulong discordId);
+    /// todo: remove public
+    Task<Profile> GetByDiscordId(ulong discordId);
 
-    public Task Create(Profile profile);
+    Task Create(Profile profile);
 
     public Task<IEnumerable<Profile>> GetProfiles(int startPosition, int count);
 

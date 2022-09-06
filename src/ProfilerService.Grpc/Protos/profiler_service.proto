@@ -55,6 +55,7 @@ message GetByDiscordIdResponse {
 	Profile profile = 1;
 }
 
+// todo refactory
 message GetRangeOfProfilesResponse {
 	repeated Profile profiles = 1;
 }

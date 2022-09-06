@@ -14,6 +14,8 @@ public class ProfileService : IProfileService
         _dataContext = dataContext ?? throw new ArgumentNullException(nameof(dataContext));
     }
 
+    // TODO: take ct from args for each async method
+
     public async Task<Profile> Create(Profile profile)
     {
         await _repository.Create(profile);
@@ -30,6 +32,10 @@ public class ProfileService : IProfileService
 
     public async Task<bool> DepositPoints(ulong discordId, double points)
     {
+
+        // todo: provider: g
+        // todo repository: insert, delete, update
+
         var profile = await _repository.GetByDiscordId(discordId);
 
         profile.Points += points;

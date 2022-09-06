@@ -7,6 +7,7 @@ namespace ProfilerService.DLL.Repositories;
 
 public class ProfileRepository : IProfileRepository
 {
+    // todo: inject from di DbSet<>
     private readonly ProfileContext _context;
 
     public ProfileRepository(ProfileContext context)
@@ -26,7 +27,7 @@ public class ProfileRepository : IProfileRepository
         _context.Profiles.Remove(profile);
     }
 
-    public Task<Profile> GetByDiscordId(ulong discordId) => _context.Profiles.Where(x => x.DiscrodId.Equals(discordId)).FirstOrDefaultAsync();
+    public Task<Profile> GetByDiscordId(ulong discordId) => _context.Profiles.FirstOrDefaultAsync(x => x.DiscrodId.Equals(discordId));
 
     public Task<IEnumerable<Profile>> GetProfiles(int startPosition, int count)
     {

@@ -12,7 +12,9 @@ public interface IProfileService
 
     public Task<bool> Delete(ulong discordId);
 
+    // todo return type
     public Task<bool> DepositPoints(ulong discordId, double points);
 
+    // todo return type
     public Task<bool> WithdrawPoints(ulong discordId, double points);
 }
