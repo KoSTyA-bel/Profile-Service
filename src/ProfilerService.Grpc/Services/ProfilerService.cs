@@ -22,7 +22,7 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
 
     public override Task<GetByDiscordIdResponse> GetByDiscordId(GetByDiscordIdRequest request, ServerCallContext context)
     {
-        return base.GetByDiscordId(request, context);S
+        return base.GetByDiscordId(request, context);
     }
 
     public override Task<GetRangeOfProfilesResponse> GetRangeOfProfiles(GetRangeOfProfilesRequest request, ServerCallContext context)
