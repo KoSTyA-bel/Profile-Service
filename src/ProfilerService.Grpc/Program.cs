@@ -1,6 +1,19 @@
+using Microsoft.EntityFrameworkCore;
+using ProfilerService.BLL.Interfaces;
+using ProfilerService.BLL.Services;
+using ProfilerService.DLL.Contexts;
+using ProfilerService.DLL.Repositories;
 using ProfilerService.Grpc;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING") ?? builder.Configuration.GetConnectionString("Data");
+
+builder.Services.AddDbContextPool<ProfileContext>(options => options.UseNpgsql(connectionString));
+
+builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
+builder.Services.AddScoped<IProfileService, ProfileService>();
+builder.Services.AddScoped<IDataContext, ProfileDataContext>();
 
 builder.Services.AddGrpc();
 
