@@ -9,11 +9,13 @@ namespace ProfilerService.Grpc.Services;
 public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
 {
     private readonly IProfileService _service;
+    private readonly IWaxWalletVerifyService _waxWalletVerify;
     private readonly IMapper _mapper;
 
-    public ProfilerService(IProfileService service, IMapper mapper)
+    public ProfilerService(IProfileService service, IWaxWalletVerifyService waxWalletVerify, IMapper mapper)
     {
         _service = service ?? throw new ArgumentNullException(nameof(service));
+        _waxWalletVerify = waxWalletVerify ?? throw new ArgumentNullException(nameof(waxWalletVerify));
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
 
@@ -87,6 +89,17 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
         return new WithdrawPointsResponse()
         {
             Status = res ? StatusType.Success : StatusType.Failed,
+        };
+    }
+
+    public override async Task<VerifyWaxWalletResponse> VerifyWaxWallet(VerifyWaxWalletRequest request, ServerCallContext context)
+    {
+        var waxWallet = request.WaxWallet;
+        var res = await _waxWalletVerify.VerifyWaxWallet(waxWallet);
+
+        return new VerifyWaxWalletResponse()
+        {
+            Message = res ? "Confirmed" : "Bad",
         };
     }
 }

@@ -5,6 +5,9 @@ using ProfilerService.DLL.Contexts;
 using ProfilerService.DLL.Repositories;
 using ProfilerService.DLL.Providers;
 using ProfilerService.Grpc;
+using ProfilerService.BLL.Settings;
+using Microsoft.Extensions.Options;
+using ProfilerService.BLL.Verifiers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,9 +15,14 @@ var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING") ?
 
 builder.Services.AddDbContextPool<ProfileContext>(options => options.UseNpgsql(connectionString));
 
+builder.Services.Configure<WaxWalletVerifierSettings>(builder.Configuration.GetSection(nameof(WaxWalletVerifierSettings)));
+builder.Services.AddSingleton<WaxWalletVerifierSettings>(sp => sp.GetRequiredService<IOptions<WaxWalletVerifierSettings>>().Value);
+
 builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
 builder.Services.AddScoped<IProfileProvider, ProfileProvider>();
+builder.Services.AddScoped<IWaxWalletVerifier, WaxWalletVerifier>();
 builder.Services.AddScoped<IProfileService, ProfileService>();
+builder.Services.AddScoped<IWaxWalletVerifyService, WaxWalletVerifyService>();
 builder.Services.AddScoped<IDataContext, ProfileDataContext>();
 
 builder.Services.AddScoped(provider =>
