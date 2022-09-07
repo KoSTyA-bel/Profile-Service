@@ -4,17 +4,17 @@ namespace ProfilerService.BLL.Interfaces;
 
 public interface IProfileService
 {
-    public Task<Profile> GetByDiscordId(ulong discordId);
+    Task<Profile> GetByDiscordId(ulong discordId, CancellationToken token);
 
-    public Task<Profile> Create(Profile profile);
+    Task<Profile> Create(Profile profile, CancellationToken token);
 
-    public Task<IEnumerable<Profile>> GetProfiles(int startPosition, int count);
+    Task<IEnumerable<Profile>> GetProfiles(int startPosition, int count, CancellationToken token);
 
-    public Task<bool> Delete(ulong discordId);
-
-    // todo return type
-    public Task<bool> DepositPoints(ulong discordId, double points);
+    Task<bool> Delete(ulong discordId, CancellationToken token);
 
     // todo return type
-    public Task<bool> WithdrawPoints(ulong discordId, double points);
+    public Task<bool> DepositPoints(ulong discordId, double points, CancellationToken token);
+
+    // todo return type
+    public Task<bool> WithdrawPoints(ulong discordId, double points, CancellationToken token);
 }

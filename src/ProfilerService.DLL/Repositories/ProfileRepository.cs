@@ -7,40 +7,21 @@ namespace ProfilerService.DLL.Repositories;
 
 public class ProfileRepository : IProfileRepository
 {
-    // todo: inject from di DbSet<>
-    private readonly ProfileContext _context;
+    private readonly DbSet<Profile> _profiles;
 
-    public ProfileRepository(ProfileContext context)
+    public ProfileRepository(DbSet<Profile> profiles)
     {
-        _context = context ?? throw new ArgumentNullException(nameof(context));
+        _profiles = profiles ?? throw new ArgumentNullException(nameof(profiles));
     }
 
-    public Task Create(Profile profile)
+    public Task Create(Profile profile, CancellationToken token)
     {
-        _context.Add(profile);
+        _profiles.Add(profile);
         return Task.CompletedTask;
     }
 
-    public async Task Delete(ulong discordId)
+    public async Task Delete(Profile profile, CancellationToken token)
     {
-        var profile = await this.GetByDiscordId(discordId);
-        _context.Profiles.Remove(profile);
-    }
-
-    public Task<Profile> GetByDiscordId(ulong discordId) => _context.Profiles.FirstOrDefaultAsync(x => x.DiscrodId.Equals(discordId));
-
-    public Task<IEnumerable<Profile>> GetProfiles(int startPosition, int count)
-    {
-        if (startPosition < 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(startPosition));
-        }
-
-        if (count <= 0)
-        {
-            throw new ArgumentOutOfRangeException(nameof(count));
-        }
-
-        return Task.FromResult((IEnumerable<Profile>)_context.Profiles.Skip(startPosition).Take(count).ToArray());
+        _profiles.Remove(profile);
     }
 }

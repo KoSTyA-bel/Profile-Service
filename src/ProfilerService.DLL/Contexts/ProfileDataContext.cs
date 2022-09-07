@@ -11,5 +11,5 @@ public class ProfileDataContext : IDataContext
         _profileContext = profileContext ?? throw new ArgumentNullException(nameof(profileContext));
     }
 
-    public Task SaveChangesAsync(CancellationToken token) => _profileContext.SaveChangesAsync(token);
+    public Task SaveChanges(CancellationToken token) => _profileContext.SaveChangesAsync(token);
 }

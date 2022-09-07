@@ -21,7 +21,7 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
     {
         var profile = _mapper.Map<BusinessModels.Profile>(request);
 
-        await _service.Create(profile);
+        await _service.Create(profile, context.CancellationToken);
 
         return new CreateProfileResponse();
     }
@@ -30,15 +30,16 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
     {
         var discordId = _mapper.Map<ulong>(request.DiscordId);
 
-        await _service.Delete(discordId);
+        await _service.Delete(discordId, context.CancellationToken);
 
         return new DeleteUserResponse();
     }
 
     public override async Task<DepositPointsResponse> DepositPoints(DepositPointsRequest request, ServerCallContext context)
     {
-        // TODO: magic parse
-        var res = await _service.DepositPoints(ulong.Parse(request.DiscordId), request.Points);
+        ulong discordId = request.DiscordId;
+        double points = request.Points;
+        var res = await _service.DepositPoints(discordId, points, context.CancellationToken);
 
         return new DepositPointsResponse()
         {
@@ -48,9 +49,9 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
 
     public override async Task<GetByDiscordIdResponse> GetByDiscordId(GetByDiscordIdRequest request, ServerCallContext context)
     {
-        var discordId = _mapper.Map<ulong>(request);
+        var discordId = request.DiscordId;
 
-        var profile = await _service.GetByDiscordId(discordId);
+        var profile = await _service.GetByDiscordId(discordId, context.CancellationToken);
 
         var grpcProfile = _mapper.Map<Service.Grpc.Profile>(profile);
 
@@ -62,7 +63,10 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
 
     public override async Task<GetRangeOfProfilesResponse> GetRangeOfProfiles(GetRangeOfProfilesRequest request, ServerCallContext context)
     {
-        var profiles = await _service.GetProfiles(request.StartPosition, request.Count);
+        int page = request.Page;
+        int pageSize = request.PageSize;
+
+        var profiles = await _service.GetProfiles(page, pageSize, context.CancellationToken);
 
         var grpcProfiles = new List<Service.Grpc.Profile>();
         grpcProfiles.AddRange(_mapper.Map<List<Service.Grpc.Profile>>(profiles));
@@ -75,8 +79,10 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
 
     public override async Task<WithdrawPointsResponse> WithdrawPoints(WithdrawPointsRequest request, ServerCallContext context)
     {
-        // todo magic
-        var res = await _service.WithdrawPoints(ulong.Parse(request.DiscordId), request.Points);
+        ulong discordId = request.DiscordId;
+        double points  = request.Points;
+
+        var res = await _service.WithdrawPoints(discordId, points, context.CancellationToken);
 
         return new WithdrawPointsResponse()
         {

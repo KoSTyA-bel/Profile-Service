@@ -2,5 +2,5 @@
 
 public interface IDataContext
 {
-    public Task SaveChangesAsync(CancellationToken token);
+    Task SaveChanges(CancellationToken token);
 }

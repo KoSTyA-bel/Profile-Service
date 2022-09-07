@@ -25,29 +25,29 @@ service ProfilerService {
 }
 
 message GetByDiscordIdRequest {
-	string discordId = 1;
+	uint64 discordId = 1;
 }
 
 message GetRangeOfProfilesRequest {
-	int32 startPosition = 1;
-	int32 count = 2;
+	int32 page = 1;
+	int32 pageSize = 2;
 }
 
 message CreateProfileRequest {
-	string discordId = 1;
+	uint64 discordId = 1;
 }
 
 message DeleteUserRequest {
-	string discordId = 1;
+	uint64 discordId = 1;
 }
 
 message DepositPointsRequest {
-	string discordId = 1;
+	uint64 discordId = 1;
 	double points = 2;
 }
 
 message WithdrawPointsRequest {
-	string discordId = 1;
+	uint64 discordId = 1;
 	double points = 2;
 }
 
@@ -81,6 +81,6 @@ enum StatusType {
 }
 
 message Profile {
-	string discordId = 1;
+	uint64 discordId = 1;
 	double points = 2;
 }
