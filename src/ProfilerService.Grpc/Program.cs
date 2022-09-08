@@ -2,34 +2,21 @@ using Microsoft.EntityFrameworkCore;
 using ProfilerService.BLL.Interfaces;
 using ProfilerService.BLL.Services;
 using ProfilerService.DLL.Contexts;
-using ProfilerService.DLL.Repositories;
-using ProfilerService.DLL.Providers;
 using ProfilerService.Grpc;
 using ProfilerService.BLL.Settings;
 using Microsoft.Extensions.Options;
 using ProfilerService.BLL.Verifiers;
+using ProfilerService.DLL;
 
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING") ?? builder.Configuration.GetConnectionString("Data");
 
-builder.Services.AddDbContextPool<ProfileContext>(options => options.UseNpgsql(connectionString));
-
 builder.Services.Configure<WaxWalletVerifierSettings>(builder.Configuration.GetSection(nameof(WaxWalletVerifierSettings)));
-builder.Services.AddSingleton<WaxWalletVerifierSettings>(sp => sp.GetRequiredService<IOptions<WaxWalletVerifierSettings>>().Value);
 
-builder.Services.AddScoped<IProfileRepository, ProfileRepository>();
-builder.Services.AddScoped<IProfileProvider, ProfileProvider>();
-builder.Services.AddScoped<IWaxWalletVerifier, WaxWalletVerifier>();
-builder.Services.AddScoped<IProfileService, ProfileService>();
-builder.Services.AddScoped<IWaxWalletVerifyService, WaxWalletVerifyService>();
-builder.Services.AddScoped<IDataContext, ProfileDataContext>();
-
-builder.Services.AddScoped(provider =>
-{
-    var service = provider.GetService(typeof(ProfileContext)) as ProfileContext;
-    return service.Profiles;
-});
+builder.Services.AddProfileService();
+builder.Services.AddProfileDataBase(connectionString);
+builder.Services.AddWaxWalletVerifier();
 
 builder.Services.AddGrpc();
 

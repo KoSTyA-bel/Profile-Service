@@ -8,9 +8,9 @@ namespace ProfilerService.BLL.Verifiers;
 
 public class WaxWalletVerifier : IWaxWalletVerifier
 {
-    private readonly WaxWalletVerifierSettings _settings;
+    private readonly IWaxWalletVerifierSettings _settings;
 
-    public WaxWalletVerifier(WaxWalletVerifierSettings settings)
+    public WaxWalletVerifier(IWaxWalletVerifierSettings settings)
     {
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
     }

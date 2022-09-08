@@ -31,7 +31,7 @@ public class ProfileService : IProfileService
         return true;
     }
 
-    public async Task<Status> DepositPoints(ulong discordId, double points, CancellationToken token)
+    public async Task<StatusType> DepositPoints(ulong discordId, double points, CancellationToken token)
     {
         var profile = await _provider.GetByDiscordId(discordId, token);
 
@@ -39,7 +39,7 @@ public class ProfileService : IProfileService
 
         await _dataContext.SaveChanges(token);
 
-        return Status.Succes;
+        return StatusType.Succes;
     }
 
     public Task<Profile> GetByDiscordId(ulong discordId, CancellationToken token) => _provider.GetByDiscordId(discordId, token);
@@ -59,7 +59,7 @@ public class ProfileService : IProfileService
         return _provider.GetProfiles(startPosition, count, token); 
     }
 
-    public async Task<Status> WithdrawPoints(ulong discordId, double points, CancellationToken token)
+    public async Task<StatusType> WithdrawPoints(ulong discordId, double points, CancellationToken token)
     {
         var profile = await _provider.GetByDiscordId(discordId, token);
 
@@ -67,6 +67,6 @@ public class ProfileService : IProfileService
 
         await _dataContext.SaveChanges(token);
 
-        return Status.Succes;
+        return StatusType.Succes;
     }
 }

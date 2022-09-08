@@ -1,6 +1,6 @@
 ﻿namespace ProfilerService.BLL.Entities;
 
-public enum Status
+public enum StatusType
 {
     Succes = 1,
     Failed = 2,

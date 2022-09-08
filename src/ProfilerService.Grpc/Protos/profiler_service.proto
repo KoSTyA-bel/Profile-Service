@@ -28,35 +28,35 @@ service ProfilerService {
 }
 
 message GetByDiscordIdRequest {
-	uint64 discordId = 1;
+	uint64 discord_id = 1;
 }
 
 message GetRangeOfProfilesRequest {
 	int32 page = 1;
-	int32 pageSize = 2;
+	int32 page_size = 2;
 }
 
 message CreateProfileRequest {
-	uint64 discordId = 1;
+	uint64 discord_id = 1;
 }
 
 message DeleteUserRequest {
-	uint64 discordId = 1;
+	uint64 discord_id = 1;
 }
 
 message DepositPointsRequest {
-	uint64 discordId = 1;
+	uint64 discord_id = 1;
 	double points = 2;
 }
 
 message WithdrawPointsRequest {
-	uint64 discordId = 1;
+	uint64 discord_id = 1;
 	double points = 2;
 }
 
 message VerifyWaxWalletRequest {
-	uint64 discordId = 1;
-	string waxWallet = 2;
+	uint64 discord_id = 1;
+	string wax_wallet = 2;
 }
 
 message GetByDiscordIdResponse {
@@ -93,6 +93,6 @@ enum StatusType {
 }
 
 message Profile {
-	uint64 discordId = 1;
+	uint64 discord_id = 1;
 	double points = 2;
 }

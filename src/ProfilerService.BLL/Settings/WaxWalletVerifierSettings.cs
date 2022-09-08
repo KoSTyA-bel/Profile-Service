@@ -1,6 +1,8 @@
-﻿namespace ProfilerService.BLL.Settings;
+﻿using ProfilerService.BLL.Interfaces;
 
-public class WaxWalletVerifierSettings
+namespace ProfilerService.BLL.Settings;
+
+public class WaxWalletVerifierSettings : IWaxWalletVerifierSettings
 {
     public string ApiUrl { get; set; }
 

@@ -13,8 +13,8 @@ public interface IProfileService
     Task<bool> Delete(ulong discordId, CancellationToken token);
 
     // todo return type
-    public Task<Status> DepositPoints(ulong discordId, double points, CancellationToken token);
+    public Task<StatusType> DepositPoints(ulong discordId, double points, CancellationToken token);
 
     // todo return type
-    public Task<Status> WithdrawPoints(ulong discordId, double points, CancellationToken token);
+    public Task<StatusType> WithdrawPoints(ulong discordId, double points, CancellationToken token);
 }

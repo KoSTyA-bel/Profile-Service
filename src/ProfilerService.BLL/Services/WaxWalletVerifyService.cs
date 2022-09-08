@@ -13,10 +13,10 @@ public class WaxWalletVerifyService : IWaxWalletVerifyService
         _verifyer = verifyer ?? throw new ArgumentNullException(nameof(verifyer));
     }
 
-    public async Task<Status> VerifyWaxWallet(string waxWallet)
+    public async Task<StatusType> VerifyWaxWallet(string waxWallet)
     {
         var result = await _verifyer.VerifyWaxWallet(waxWallet);
 
-        return result ? Status.Succes : Status.Failed;
+        return result ? StatusType.Succes : StatusType.Failed;
     }
 }

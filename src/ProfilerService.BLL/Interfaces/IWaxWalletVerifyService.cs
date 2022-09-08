@@ -4,5 +4,5 @@ namespace ProfilerService.BLL.Interfaces;
 
 public interface IWaxWalletVerifyService
 {
-    Task<Status> VerifyWaxWallet(string waxWallet);
+    Task<StatusType> VerifyWaxWallet(string waxWallet);
 }
