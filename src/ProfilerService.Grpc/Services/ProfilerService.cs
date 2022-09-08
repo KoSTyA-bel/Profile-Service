@@ -45,7 +45,7 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
 
         return new DepositPointsResponse()
         {
-            Status = res ? StatusType.Success : StatusType.Failed,
+            Status = (StatusType)res,
         };
     }
 
@@ -88,7 +88,7 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
 
         return new WithdrawPointsResponse()
         {
-            Status = res ? StatusType.Success : StatusType.Failed,
+            Status = (StatusType)res,
         };
     }
 
@@ -99,7 +99,7 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
 
         return new VerifyWaxWalletResponse()
         {
-            Message = res ? "Confirmed" : "Bad",
+            Status = (StatusType)res,
         };
     }
 }

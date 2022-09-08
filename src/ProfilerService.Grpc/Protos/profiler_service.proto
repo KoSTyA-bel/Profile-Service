@@ -83,7 +83,7 @@ message WithdrawPointsResponse {
 }
 
 message VerifyWaxWalletResponse {
-	string message = 1;
+	StatusType status = 1;
 }
 
 enum StatusType {

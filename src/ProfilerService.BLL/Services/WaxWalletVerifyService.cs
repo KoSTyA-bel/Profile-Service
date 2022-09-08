@@ -1,4 +1,5 @@
-﻿using ProfilerService.BLL.Interfaces;
+﻿using ProfilerService.BLL.Entities;
+using ProfilerService.BLL.Interfaces;
 using ProfilerService.BLL.Settings;
 
 namespace ProfilerService.BLL.Services;
@@ -12,5 +13,10 @@ public class WaxWalletVerifyService : IWaxWalletVerifyService
         _verifyer = verifyer ?? throw new ArgumentNullException(nameof(verifyer));
     }
 
-    public Task<bool> VerifyWaxWallet(string waxWallet) => _verifyer.VerifyWaxWallet(waxWallet);
+    public async Task<Status> VerifyWaxWallet(string waxWallet)
+    {
+        var result = await _verifyer.VerifyWaxWallet(waxWallet);
+
+        return result ? Status.Succes : Status.Failed;
+    }
 }
