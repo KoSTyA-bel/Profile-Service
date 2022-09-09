@@ -1,12 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using ProfilerService.BLL.Interfaces;
-using ProfilerService.BLL.Services;
-using ProfilerService.DLL.Contexts;
 using ProfilerService.Grpc;
 using ProfilerService.BLL.Settings;
-using Microsoft.Extensions.Options;
-using ProfilerService.BLL.Verifiers;
 using ProfilerService.DLL;
+using ProfilerService.BLL;
 
 var builder = WebApplication.CreateBuilder(args);
 

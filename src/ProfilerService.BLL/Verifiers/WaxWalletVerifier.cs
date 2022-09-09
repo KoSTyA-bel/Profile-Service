@@ -15,7 +15,7 @@ public class WaxWalletVerifier : IWaxWalletVerifier
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
     }
 
-    public async Task<bool> VerifyWaxWallet(string waxWallet)
+    public async Task<bool> VerifyWaxWallet(string waxWallet, CancellationToken token)
     {
         using var client = new HttpClient();
         var uri = _settings.ApiUrl + "&owner=" + waxWallet + "&collection_name=" + _settings.CollectionName;
@@ -26,7 +26,7 @@ public class WaxWalletVerifier : IWaxWalletVerifier
 
         client.DefaultRequestHeaders.Accept.Add(acceptedHeader);
 
-        var response = await client.GetAsync(string.Empty);
+        var response = await client.GetAsync(string.Empty, token);
 
         if (!response.IsSuccessStatusCode)
         {
@@ -35,7 +35,7 @@ public class WaxWalletVerifier : IWaxWalletVerifier
 
         var streamTask = response.Content.ReadAsStreamAsync();
 
-        var waxApiResponse = await JsonSerializer.DeserializeAsync<WaxApiResponse>(await streamTask);
+        var waxApiResponse = await JsonSerializer.DeserializeAsync<WaxApiResponse>(await streamTask, cancellationToken: token);
 
         return waxApiResponse.data.Length != 0;
     }

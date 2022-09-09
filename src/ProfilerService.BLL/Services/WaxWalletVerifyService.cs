@@ -13,9 +13,9 @@ public class WaxWalletVerifyService : IWaxWalletVerifyService
         _verifyer = verifyer ?? throw new ArgumentNullException(nameof(verifyer));
     }
 
-    public async Task<StatusType> VerifyWaxWallet(string waxWallet)
+    public async Task<StatusType> VerifyWaxWallet(string waxWallet, CancellationToken token)
     {
-        var result = await _verifyer.VerifyWaxWallet(waxWallet);
+        var result = await _verifyer.VerifyWaxWallet(waxWallet, token);
 
         return result ? StatusType.Succes : StatusType.Failed;
     }

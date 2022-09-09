@@ -2,5 +2,5 @@
 
 public interface IWaxWalletVerifier
 {
-    Task<bool> VerifyWaxWallet(string waxWallet);
+    Task<bool> VerifyWaxWallet(string waxWallet, CancellationToken token);
 }

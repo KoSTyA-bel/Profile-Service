@@ -95,7 +95,7 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
     public override async Task<VerifyWaxWalletResponse> VerifyWaxWallet(VerifyWaxWalletRequest request, ServerCallContext context)
     {
         var waxWallet = request.WaxWallet;
-        var res = await _waxWalletVerify.VerifyWaxWallet(waxWallet);
+        var res = await _waxWalletVerify.VerifyWaxWallet(waxWallet, context.CancellationToken);
 
         return new VerifyWaxWalletResponse()
         {
