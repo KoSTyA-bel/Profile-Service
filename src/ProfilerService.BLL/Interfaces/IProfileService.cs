@@ -8,6 +8,8 @@ public interface IProfileService
 
     Task<Profile> Create(Profile profile, CancellationToken token);
 
+    Task<Profile> Update(Profile profile, CancellationToken token);
+
     Task<IEnumerable<Profile>> GetProfiles(int startPosition, int count, CancellationToken token);
 
     Task<bool> Delete(ulong discordId, CancellationToken token);

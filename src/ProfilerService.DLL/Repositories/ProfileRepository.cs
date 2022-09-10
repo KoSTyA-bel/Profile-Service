@@ -20,8 +20,13 @@ public class ProfileRepository : IProfileRepository
         return Task.CompletedTask;
     }
 
-    public async Task Delete(Profile profile, CancellationToken token)
+    public Task Delete(Profile profile, CancellationToken token)
     {
-        _profiles.Remove(profile);
+        return Task.FromResult(_profiles.Remove(profile));
+    }
+
+    public Task Update(Profile profile, CancellationToken token)
+    {
+        return Task.FromResult(_profiles.Update(profile));
     }
 }

@@ -35,7 +35,6 @@ namespace ProfilerService.DLL.Migrations
                         .HasColumnType("double precision");
 
                     b.Property<string>("WaxWallet")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");

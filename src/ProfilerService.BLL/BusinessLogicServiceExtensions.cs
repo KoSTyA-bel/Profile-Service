@@ -28,6 +28,8 @@ public static class BusinessLogicServiceExtensions
     public static IServiceCollection AddProfileService(this IServiceCollection services)
     {
         services.AddScoped<IProfileService, ProfileService>();
+        services.AddSingleton<IDepositer, Business>();
+        services.AddSingleton<IWithdrawer, Business>();
 
         return services;
     }

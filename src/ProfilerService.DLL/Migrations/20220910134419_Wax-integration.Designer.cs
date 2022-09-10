@@ -12,8 +12,8 @@ using ProfilerService.DLL.Contexts;
 namespace ProfilerService.DLL.Migrations
 {
     [DbContext(typeof(ProfileContext))]
-    [Migration("20220907195243_Wax-Integration")]
-    partial class WaxIntegration
+    [Migration("20220910134419_Wax-integration")]
+    partial class Waxintegration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -37,7 +37,6 @@ namespace ProfilerService.DLL.Migrations
                         .HasColumnType("double precision");
 
                     b.Property<string>("WaxWallet")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");

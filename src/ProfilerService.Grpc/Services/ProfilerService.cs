@@ -96,10 +96,20 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
     {
         var waxWallet = request.WaxWallet;
         var res = await _waxWalletVerify.VerifyWaxWallet(waxWallet, context.CancellationToken);
+        var response = new VerifyWaxWalletResponse();
 
-        return new VerifyWaxWalletResponse()
+
+        switch (res)
         {
-            Status = (StatusType)res,
-        };
+            case BusinessModels.StatusType.Succes:
+                await _service.Update(_mapper.Map<BusinessModels.Profile>(request), context.CancellationToken);
+                response.Status = StatusType.Success;
+                break;
+            case BusinessModels.StatusType.Failed:
+                response.Status = StatusType.Failed;
+                break;
+        }
+
+        return response;
     }
 }

@@ -59,6 +59,24 @@ public class ProfileService : IProfileService
         return _provider.GetProfiles(startPosition, count, token); 
     }
 
+    public async Task<Profile> Update(Profile profile, CancellationToken token)
+    {
+        if (profile is null)
+        {
+            throw new ArgumentNullException(nameof(profile));
+        }
+
+        var profileToUpdate = await _provider.GetByDiscordId(profile.DiscrodId, token);
+
+        profileToUpdate.WaxWallet = profile.WaxWallet;
+
+        await _repository.Update(profileToUpdate, token);
+
+        await _dataContext.SaveChanges(token);
+
+        return profile;
+    }
+
     public async Task<StatusType> WithdrawPoints(ulong discordId, double points, CancellationToken token)
     {
         var profile = await _provider.GetByDiscordId(discordId, token);
