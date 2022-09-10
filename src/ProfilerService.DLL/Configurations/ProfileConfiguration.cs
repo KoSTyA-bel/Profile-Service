@@ -14,5 +14,7 @@ public class ProfileConfiguration : IEntityTypeConfiguration<Profile>
         builder.Property(x => x.DiscrodId).IsRequired();
         builder.Property(x => x.Points).IsRequired();
         builder.Property(x => x.WaxWallet).IsRequired(false);
+
+        builder.ToTable("Profiles");
     }
 }

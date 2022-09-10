@@ -12,8 +12,8 @@ using ProfilerService.DLL.Contexts;
 namespace ProfilerService.DLL.Migrations
 {
     [DbContext(typeof(ProfileContext))]
-    [Migration("20220910134419_Wax-integration")]
-    partial class Waxintegration
+    [Migration("20220910194845_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -41,7 +41,7 @@ namespace ProfilerService.DLL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Profiles");
+                    b.ToTable("Profiles", (string)null);
                 });
 #pragma warning restore 612, 618
         }

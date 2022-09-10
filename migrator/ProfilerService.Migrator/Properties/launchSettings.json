@@ -1,0 +1,14 @@
+{
+  "profiles": {
+    "ProfilerService.Migrator": {
+      "commandName": "Project",
+      "commandLineArgs": "--connection-string-source env --connection-string-env-variable-name CONNECTION_STRING",
+      "environmentVariables": {
+        "CONNECTION_STRING": "host=localhost;Port=5432;Database=Profile;User Id=postgres;Password=kofein"
+      }
+    },
+    "Docker (1)": {
+      "commandName": "Docker"
+    }
+  }
+}
