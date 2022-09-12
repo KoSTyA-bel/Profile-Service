@@ -39,7 +39,7 @@ public class ProfileService : IProfileService
 
         await _dataContext.SaveChanges(token);
 
-        return StatusType.Succes;
+        return StatusType.Success;
     }
 
     public Task<Profile> GetByDiscordId(ulong discordId, CancellationToken token) => _provider.GetByDiscordId(discordId, token);
@@ -85,6 +85,6 @@ public class ProfileService : IProfileService
 
         await _dataContext.SaveChanges(token);
 
-        return StatusType.Succes;
+        return StatusType.Success;
     }
 }

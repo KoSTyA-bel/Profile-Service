@@ -2,6 +2,7 @@
 
 public enum StatusType
 {
-    Succes = 1,
+    Unspecified = 0,
+    Success = 1,
     Failed = 2,
 }

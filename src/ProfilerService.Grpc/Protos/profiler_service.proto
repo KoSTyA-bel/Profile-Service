@@ -94,5 +94,6 @@ enum StatusType {
 
 message Profile {
 	uint64 discord_id = 1;
-	double points = 2;
+	string wax_wallet = 2;
+	double points = 3;
 }

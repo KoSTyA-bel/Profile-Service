@@ -17,6 +17,6 @@ public class WaxWalletVerifyService : IWaxWalletVerifyService
     {
         var result = await _verifyer.VerifyWaxWallet(waxWallet, token);
 
-        return result ? StatusType.Succes : StatusType.Failed;
+        return result ? StatusType.Success : StatusType.Failed;
     }
 }
