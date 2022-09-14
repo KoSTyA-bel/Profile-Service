@@ -13,13 +13,13 @@ public class Business : IDepositer, IWithdrawer
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
-    public void Deposit(Profile profile, double points)
+    public void Deposit(Profile profile, int points)
     {
         _logger.LogTrace("Deposit points points={points} to profile with id={profile.Id}, discordId={profile.DiscordId}", points, profile.Id, profile.DiscrodId);
         profile.Points += points;
     }
 
-    public void Withdraw(Profile profile, double points)
+    public void Withdraw(Profile profile, int points)
     {
         _logger.LogTrace("Withdraw points points={points} form profile with id={profile.Id}, discordId={profile.DiscordId}", points, profile.Id, profile.DiscrodId);
         profile.Points -= points;

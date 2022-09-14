@@ -8,12 +8,16 @@ public class ProfileService : IProfileService
     private readonly IProfileRepository _repository;
     private readonly IProfileProvider _provider;
     private readonly IDataContext _dataContext;
+    private readonly IWithdrawer _withdrawer;
+    private readonly IDepositer _depositer;
 
-    public ProfileService(IProfileRepository profileRepository, IProfileProvider provider, IDataContext dataContext)
+    public ProfileService(IProfileRepository repository, IProfileProvider provider, IDataContext dataContext, IWithdrawer withdrawer, IDepositer depositer)
     {
-        _repository = profileRepository ?? throw new ArgumentNullException(nameof(profileRepository));
+        _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         _provider = provider ?? throw new ArgumentNullException(nameof(provider));
         _dataContext = dataContext ?? throw new ArgumentNullException(nameof(dataContext));
+        _withdrawer = withdrawer ?? throw new ArgumentNullException(nameof(withdrawer));
+        _depositer = depositer ?? throw new ArgumentNullException(nameof(depositer));
     }
 
     public async Task<Profile> Create(Profile profile, CancellationToken token)
@@ -31,11 +35,11 @@ public class ProfileService : IProfileService
         return true;
     }
 
-    public async Task<StatusType> DepositPoints(ulong discordId, double points, CancellationToken token)
+    public async Task<StatusType> DepositPoints(ulong discordId, int points, CancellationToken token)
     {
         var profile = await _provider.GetByDiscordId(discordId, token);
 
-        profile.Points += points;
+        _depositer.Deposit(profile, points);
 
         await _dataContext.SaveChanges(token);
 
@@ -66,22 +70,18 @@ public class ProfileService : IProfileService
             throw new ArgumentNullException(nameof(profile));
         }
 
-        var profileToUpdate = await _provider.GetByDiscordId(profile.DiscrodId, token);
-
-        profileToUpdate.WaxWallet = profile.WaxWallet;
-
-        await _repository.Update(profileToUpdate, token);
+        await _repository.Update(profile, token);
 
         await _dataContext.SaveChanges(token);
 
         return profile;
     }
 
-    public async Task<StatusType> WithdrawPoints(ulong discordId, double points, CancellationToken token)
+    public async Task<StatusType> WithdrawPoints(ulong discordId, int points, CancellationToken token)
     {
         var profile = await _provider.GetByDiscordId(discordId, token);
 
-        profile.Points -= points;
+        _withdrawer.Withdraw(profile, points);
 
         await _dataContext.SaveChanges(token);
 

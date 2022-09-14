@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using ProfilerService.BLL.Entities;
 using ProfilerService.DLL.Configurations;
 
@@ -16,6 +17,9 @@ public class ProfileContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new ProfileConfiguration());
+
+        modelBuilder.Entity<Profile>().HasIndex(x => x.DiscrodId).IsUnique();
+        modelBuilder.Entity<Profile>().HasIndex(x => x.WaxWallet).IsUnique();
 
         base.OnModelCreating(modelBuilder);
     }

@@ -40,7 +40,7 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
     public override async Task<DepositPointsResponse> DepositPoints(DepositPointsRequest request, ServerCallContext context)
     {
         ulong discordId = request.DiscordId;
-        double points = request.Points;
+        int points = request.Points;
         var res = await _service.DepositPoints(discordId, points, context.CancellationToken);
 
         return new DepositPointsResponse()
@@ -82,7 +82,7 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
     public override async Task<WithdrawPointsResponse> WithdrawPoints(WithdrawPointsRequest request, ServerCallContext context)
     {
         ulong discordId = request.DiscordId;
-        double points  = request.Points;
+        int points  = request.Points;
 
         var res = await _service.WithdrawPoints(discordId, points, context.CancellationToken);
 
@@ -94,14 +94,14 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
 
     public override async Task<VerifyWaxWalletResponse> VerifyWaxWallet(VerifyWaxWalletRequest request, ServerCallContext context)
     {
-        var waxWallet = request.WaxWallet;
-        var res = await _waxWalletVerify.VerifyWaxWallet(waxWallet, context.CancellationToken);
+        var profile = _mapper.Map<BusinessModels.Profile>(request.Profile);
+        var res = await _waxWalletVerify.VerifyWaxWallet(profile.WaxWallet, context.CancellationToken);
         var response = new VerifyWaxWalletResponse();
 
         switch (res)
         {
             case BusinessModels.StatusType.Success:
-                await _service.Update(_mapper.Map<BusinessModels.Profile>(request), context.CancellationToken);
+                await _service.Update(profile, context.CancellationToken);
                 response.Status = StatusType.Success;
                 break;
             case BusinessModels.StatusType.Failed:

@@ -4,5 +4,5 @@ namespace ProfilerService.BLL.Interfaces;
 
 public interface IDepositer
 {
-    void Deposit(Profile profile, double points);
+    void Deposit(Profile profile, int points);
 }

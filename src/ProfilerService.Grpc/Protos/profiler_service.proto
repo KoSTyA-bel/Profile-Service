@@ -46,17 +46,16 @@ message DeleteUserRequest {
 
 message DepositPointsRequest {
 	uint64 discord_id = 1;
-	double points = 2;
+	int32 points = 2;
 }
 
 message WithdrawPointsRequest {
 	uint64 discord_id = 1;
-	double points = 2;
+	int32 points = 2;
 }
 
 message VerifyWaxWalletRequest {
-	uint64 discord_id = 1;
-	string wax_wallet = 2;
+	Profile profile = 1;
 }
 
 message GetByDiscordIdResponse {
@@ -93,7 +92,11 @@ enum StatusType {
 }
 
 message Profile {
-	uint64 discord_id = 1;
-	string wax_wallet = 2;
-	double points = 3;
+	string id = 1;
+	uint64 discord_id = 2;
+	string wax_wallet = 3;
+	int32 points = 4;
+	uint32 win_count = 5; 
+	uint32 lose_count = 6; 
+	string creation_date = 7;
 }

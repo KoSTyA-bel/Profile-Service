@@ -3,6 +3,7 @@ using ProfilerService.Grpc;
 using ProfilerService.BLL.Settings;
 using ProfilerService.DLL;
 using ProfilerService.BLL;
+using ProfilerService.Grpc.Interceptors;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +17,11 @@ builder.Services.AddProfileService();
 builder.Services.AddProfileDataBase(connectionString);
 builder.Services.AddWaxWalletVerifier();    
 
-builder.Services.AddGrpc();
+builder.Services.AddGrpc(options =>
+{
+    options.Interceptors.Add<ErrorHandlingInterceptor>();
+    options.Interceptors.Add<ValidationInterceptor>();
+});
 
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
@@ -36,5 +41,7 @@ if (collectionName is not null)
 {
     settings.CollectionName = collectionName;
 }
+
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 
 app.Run();
