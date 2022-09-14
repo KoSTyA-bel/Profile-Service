@@ -19,6 +19,11 @@ public class MappingProfile : AutoMapper.Profile
         CreateMap<DateTime, string>()
             .ConvertUsing((x, res) => res = x.ToString());
 
+        CreateMap<Service.Grpc.StatusType, StatusType>()
+            .ConvertUsing((x, res) => res = (StatusType)x);
+        CreateMap<StatusType, Service.Grpc.StatusType>()
+            .ConvertUsing((x, res) => res = (Service.Grpc.StatusType)x);
+
         CreateMap<Profile, Service.Grpc.Profile>()
             .ForMember(dest => dest.DiscordId, opt => opt.MapFrom(src => src.DiscrodId))
             .ForMember(dest => dest.PointsAmount, opt => opt.MapFrom(src => src.PointsAmount))

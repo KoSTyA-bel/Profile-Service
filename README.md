@@ -160,13 +160,17 @@ GetRangeOfProfilesResponse:
 CreateProfileResponse:
 
 ```
-{}
+{
+	"status": "STATUS_TYPE_SUCCESS"
+}
 ```
 
 DeleteUserResponse:
 
 ```
-{}
+{
+	"status": "STATUS_TYPE_SUCCESS"
+}
 ```
 
 DepositPointsResponse:

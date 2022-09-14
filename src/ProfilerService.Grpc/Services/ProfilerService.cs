@@ -22,45 +22,48 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
     public override async Task<CreateProfileResponse> CreateProfile(CreateProfileRequest request, ServerCallContext context)
     {
         var profile = _mapper.Map<BusinessModels.Profile>(request);
+        var result = await _service.Create(profile, context.CancellationToken);
+        var response = new CreateProfileResponse();
 
-        await _service.Create(profile, context.CancellationToken);
+        response.Status = _mapper.Map<StatusType>(result);
 
-        return new CreateProfileResponse();
+        return response;
     }
 
     public override async Task<DeleteUserResponse> DeleteUser(DeleteUserRequest request, ServerCallContext context)
     {
         var discordId = _mapper.Map<ulong>(request.DiscordId);
+        var result = await _service.Delete(discordId, context.CancellationToken);
+        var response = new DeleteUserResponse();
 
-        await _service.Delete(discordId, context.CancellationToken);
+        response.Status = _mapper.Map<StatusType>(result);
 
-        return new DeleteUserResponse();
+        return response;
     }
 
     public override async Task<DepositPointsResponse> DepositPoints(DepositPointsRequest request, ServerCallContext context)
     {
         ulong discordId = request.DiscordId;
         int pointsAmount = request.PointsAmount;
-        var res = await _service.DepositPoints(discordId, pointsAmount, context.CancellationToken);
+        var result = await _service.DepositPoints(discordId, pointsAmount, context.CancellationToken);
+        var response = new DepositPointsResponse();
 
-        return new DepositPointsResponse()
-        {
-            Status = (StatusType)res,
-        };
+        response.Status = _mapper.Map<StatusType>(result);
+
+        return response;
     }
 
     public override async Task<GetByDiscordIdResponse> GetByDiscordId(GetByDiscordIdRequest request, ServerCallContext context)
     {
         var discordId = request.DiscordId;
-
         var profile = await _service.GetByDiscordId(discordId, context.CancellationToken);
-
         var grpcProfile = _mapper.Map<Service.Grpc.Profile>(profile);
-
-        return new GetByDiscordIdResponse()
+        var response = new GetByDiscordIdResponse()
         {
             Profile = grpcProfile,
         };
+
+        return response;
     }
 
     public override async Task<GetRangeOfProfilesResponse> GetRangeOfProfiles(GetRangeOfProfilesRequest request, ServerCallContext context)
@@ -82,32 +85,27 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
     public override async Task<WithdrawPointsResponse> WithdrawPoints(WithdrawPointsRequest request, ServerCallContext context)
     {
         ulong discordId = request.DiscordId;
-        int pointsAmount  = request.PointsAmount;
+        int pointsAmount = request.PointsAmount;
+        var result = await _service.WithdrawPoints(discordId, pointsAmount, context.CancellationToken);
+        var response = new WithdrawPointsResponse();
 
-        var res = await _service.WithdrawPoints(discordId, pointsAmount, context.CancellationToken);
+        response.Status = _mapper.Map<StatusType>(result);
 
-        return new WithdrawPointsResponse()
-        {
-            Status = (StatusType)res,
-        };
+        return response;
     }
 
     public override async Task<VerifyWaxWalletResponse> VerifyWaxWallet(VerifyWaxWalletRequest request, ServerCallContext context)
     {
         var profile = _mapper.Map<BusinessModels.Profile>(request.Profile);
-        var res = await _waxWalletVerify.VerifyWaxWallet(profile.WaxWallet, context.CancellationToken);
+        var result = await _waxWalletVerify.VerifyWaxWallet(profile.WaxWallet, context.CancellationToken);
         var response = new VerifyWaxWalletResponse();
 
-        switch (res)
+        if (result == BusinessModels.StatusType.Success)
         {
-            case BusinessModels.StatusType.Success:
-                await _service.Update(profile, context.CancellationToken);
-                response.Status = StatusType.Success;
-                break;
-            case BusinessModels.StatusType.Failed:
-                response.Status = StatusType.Failed;
-                break;
+            await _service.Update(profile, context.CancellationToken);
         }
+
+        response.Status = _mapper.Map<StatusType>(result);
 
         return response;
     }

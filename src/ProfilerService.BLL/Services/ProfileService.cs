@@ -22,19 +22,20 @@ public class ProfileService : IProfileService
         _timeProvider = timeProvider ?? throw new ArgumentNullException(nameof(timeProvider));
     }
 
-    public async Task<Profile> Create(Profile profile, CancellationToken token)
+    public async Task<StatusType> Create(Profile profile, CancellationToken token)
     {
+        profile.CreationDate = _timeProvider.NowUTC;
         await _repository.Create(profile, token);
         await _dataContext.SaveChanges(token);
-        return profile;
+        return StatusType.Success;
     }
 
-    public async Task<bool> Delete(ulong discordId, CancellationToken token)
+    public async Task<StatusType> Delete(ulong discordId, CancellationToken token)
     {
         var profile = await _provider.GetByDiscordId(discordId, token);
         await _repository.Delete(profile, token);
         await _dataContext.SaveChanges(token);
-        return true;
+        return StatusType.Success;
     }
 
     public async Task<StatusType> DepositPoints(ulong discordId, int pointsAmount, CancellationToken token)
@@ -65,7 +66,7 @@ public class ProfileService : IProfileService
         return _provider.GetProfiles(startPosition, count, token); 
     }
 
-    public async Task<Profile> Update(Profile profile, CancellationToken token)
+    public async Task<StatusType> Update(Profile profile, CancellationToken token)
     {
         if (profile is null)
         {
@@ -76,7 +77,7 @@ public class ProfileService : IProfileService
 
         await _dataContext.SaveChanges(token);
 
-        return profile;
+        return StatusType.Success;
     }
 
     public async Task<StatusType> WithdrawPoints(ulong discordId, int pointsAmount, CancellationToken token)

@@ -20,7 +20,6 @@ public class ProfileRepository : IProfileRepository
     public Task Create(Profile profile, CancellationToken token)
     {
         _logger.LogTrace("Add new profile with discordId={prfile.DiscordId} to database", profile.DiscrodId);
-        profile.CreationDate = DateTime.UtcNow;
         _profiles.Add(profile);
         return Task.CompletedTask;
     }

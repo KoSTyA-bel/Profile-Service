@@ -6,13 +6,13 @@ public interface IProfileService
 {
     Task<Profile> GetByDiscordId(ulong discordId, CancellationToken token);
 
-    Task<Profile> Create(Profile profile, CancellationToken token);
+    Task<StatusType> Create(Profile profile, CancellationToken token);
 
-    Task<Profile> Update(Profile profile, CancellationToken token);
+    Task<StatusType> Update(Profile profile, CancellationToken token);
 
     Task<IEnumerable<Profile>> GetProfiles(int startPosition, int count, CancellationToken token);
 
-    Task<bool> Delete(ulong discordId, CancellationToken token);
+    Task<StatusType> Delete(ulong discordId, CancellationToken token);
 
     // todo return type
     public Task<StatusType> DepositPoints(ulong discordId, int pointsAmount, CancellationToken token);
