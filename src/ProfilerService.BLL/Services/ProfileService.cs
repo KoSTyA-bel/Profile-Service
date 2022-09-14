@@ -35,11 +35,11 @@ public class ProfileService : IProfileService
         return true;
     }
 
-    public async Task<StatusType> DepositPoints(ulong discordId, int points, CancellationToken token)
+    public async Task<StatusType> DepositPoints(ulong discordId, int pointsAmount, CancellationToken token)
     {
         var profile = await _provider.GetByDiscordId(discordId, token);
 
-        _depositer.Deposit(profile, points);
+        _depositer.Deposit(profile, pointsAmount);
 
         await _dataContext.SaveChanges(token);
 
@@ -77,11 +77,11 @@ public class ProfileService : IProfileService
         return profile;
     }
 
-    public async Task<StatusType> WithdrawPoints(ulong discordId, int points, CancellationToken token)
+    public async Task<StatusType> WithdrawPoints(ulong discordId, int pointsAmount, CancellationToken token)
     {
         var profile = await _provider.GetByDiscordId(discordId, token);
 
-        _withdrawer.Withdraw(profile, points);
+        _withdrawer.Withdraw(profile, pointsAmount);
 
         await _dataContext.SaveChanges(token);
 

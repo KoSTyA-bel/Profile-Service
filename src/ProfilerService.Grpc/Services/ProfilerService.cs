@@ -40,8 +40,8 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
     public override async Task<DepositPointsResponse> DepositPoints(DepositPointsRequest request, ServerCallContext context)
     {
         ulong discordId = request.DiscordId;
-        int points = request.Points;
-        var res = await _service.DepositPoints(discordId, points, context.CancellationToken);
+        int pointsAmount = request.PointsAmount;
+        var res = await _service.DepositPoints(discordId, pointsAmount, context.CancellationToken);
 
         return new DepositPointsResponse()
         {
@@ -82,9 +82,9 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
     public override async Task<WithdrawPointsResponse> WithdrawPoints(WithdrawPointsRequest request, ServerCallContext context)
     {
         ulong discordId = request.DiscordId;
-        int points  = request.Points;
+        int pointsAmount  = request.PointsAmount;
 
-        var res = await _service.WithdrawPoints(discordId, points, context.CancellationToken);
+        var res = await _service.WithdrawPoints(discordId, pointsAmount, context.CancellationToken);
 
         return new WithdrawPointsResponse()
         {

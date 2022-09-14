@@ -10,7 +10,7 @@ public class Profile
 
     public DateTime CreationDate { get; set; }
 
-    public int Points { get; set; }
+    public int PointsAmount { get; set; }
 
     public uint WinCount { get; set; }
 

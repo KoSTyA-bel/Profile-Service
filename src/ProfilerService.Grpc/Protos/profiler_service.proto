@@ -46,12 +46,12 @@ message DeleteUserRequest {
 
 message DepositPointsRequest {
 	uint64 discord_id = 1;
-	int32 points = 2;
+	int32 pointsAmount = 2;
 }
 
 message WithdrawPointsRequest {
 	uint64 discord_id = 1;
-	int32 points = 2;
+	int32 pointsAmount = 2;
 }
 
 message VerifyWaxWalletRequest {
@@ -95,7 +95,7 @@ message Profile {
 	string id = 1;
 	uint64 discord_id = 2;
 	string wax_wallet = 3;
-	int32 points = 4;
+	int32 pointsAmount = 4;
 	uint32 win_count = 5; 
 	uint32 lose_count = 6; 
 	string creation_date = 7;

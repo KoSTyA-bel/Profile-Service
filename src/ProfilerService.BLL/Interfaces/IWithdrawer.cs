@@ -4,5 +4,5 @@ namespace ProfilerService.BLL.Interfaces;
 
 public interface IWithdrawer
 {
-    void Withdraw(Profile profile, int points);
+    void Withdraw(Profile profile, int pointsAmount);
 }

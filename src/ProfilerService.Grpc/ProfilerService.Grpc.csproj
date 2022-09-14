@@ -30,8 +30,4 @@
     <ProjectReference Include="..\ProfilerService.DLL\ProfilerService.DLL.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Validators\" />
-  </ItemGroup>
-
 </Project>
