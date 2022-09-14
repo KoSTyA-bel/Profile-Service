@@ -10,14 +10,16 @@ public class ProfileService : IProfileService
     private readonly IDataContext _dataContext;
     private readonly IWithdrawer _withdrawer;
     private readonly IDepositer _depositer;
+    private readonly IDateTimeProvider _timeProvider;
 
-    public ProfileService(IProfileRepository repository, IProfileProvider provider, IDataContext dataContext, IWithdrawer withdrawer, IDepositer depositer)
+    public ProfileService(IProfileRepository repository, IProfileProvider provider, IDataContext dataContext, IWithdrawer withdrawer, IDepositer depositer, IDateTimeProvider timeProvider)
     {
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         _provider = provider ?? throw new ArgumentNullException(nameof(provider));
         _dataContext = dataContext ?? throw new ArgumentNullException(nameof(dataContext));
         _withdrawer = withdrawer ?? throw new ArgumentNullException(nameof(withdrawer));
         _depositer = depositer ?? throw new ArgumentNullException(nameof(depositer));
+        _timeProvider = timeProvider ?? throw new ArgumentNullException(nameof(timeProvider));
     }
 
     public async Task<Profile> Create(Profile profile, CancellationToken token)

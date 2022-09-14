@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using ProfilerService.BLL.BusinessLogic;
 using ProfilerService.BLL.Interfaces;
+using ProfilerService.BLL.Providerc;
 using ProfilerService.BLL.Services;
 using ProfilerService.BLL.Settings;
 using ProfilerService.BLL.Verifiers;
@@ -30,6 +32,7 @@ public static class BusinessLogicServiceExtensions
         services.AddScoped<IProfileService, ProfileService>();
         services.AddSingleton<IDepositer, Business>();
         services.AddSingleton<IWithdrawer, Business>();
+        services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
 
         return services;
     }

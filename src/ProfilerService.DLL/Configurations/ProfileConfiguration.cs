@@ -13,7 +13,7 @@ public class ProfileConfiguration : IEntityTypeConfiguration<Profile>
         builder.Property(x => x.Id).ValueGeneratedOnAdd();
 
         builder.Property(x => x.DiscrodId).IsRequired();
-        builder.Property(x => x.Points).IsRequired();
+        builder.Property(x => x.PointsAmount).IsRequired();
         builder.Property(x => x.WaxWallet).IsRequired(false);
         builder.Property(x => x.LoseCount).IsRequired();
         builder.Property(x => x.WinCount).IsRequired();
