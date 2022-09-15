@@ -24,6 +24,11 @@ public class MappingProfile : AutoMapper.Profile
         CreateMap<StatusType, Service.Grpc.StatusType>()
             .ConvertUsing((x, res) => res = (Service.Grpc.StatusType)x);
 
+        CreateMap<Service.Grpc.NFTType, NFTType>()
+            .ConvertUsing((x, res) => res = (NFTType)x);
+        CreateMap<NFTType, Service.Grpc.NFTType>()
+            .ConvertUsing((x, res) => res = (Service.Grpc.NFTType)x);
+
         CreateMap<Profile, Service.Grpc.Profile>()
             .ForMember(dest => dest.DiscordId, opt => opt.MapFrom(src => src.DiscrodId))
             .ForMember(dest => dest.PointsAmount, opt => opt.MapFrom(src => src.PointsAmount))

@@ -6,16 +6,16 @@ using System.Text.Json;
 
 namespace ProfilerService.BLL.Verifiers;
 
-public class WaxWalletVerifier : IWaxWalletVerifier
+public class NFTVerifier : INFTVerifier
 {
-    private readonly IWaxWalletVerifierSettings _settings;
+    private readonly INFTVerifierSettings _settings;
 
-    public WaxWalletVerifier(IWaxWalletVerifierSettings settings)
+    public NFTVerifier(INFTVerifierSettings settings)
     {
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
     }
 
-    public async Task<bool> VerifyWaxWallet(string waxWallet, CancellationToken token)
+    public async Task<NFTType> VerifyWaxWallet(string waxWallet, CancellationToken token)
     {
         using var client = new HttpClient();
         var uri = _settings.ApiUrl + "&owner=" + waxWallet + "&collection_name=" + _settings.CollectionName;
@@ -30,13 +30,33 @@ public class WaxWalletVerifier : IWaxWalletVerifier
 
         if (!response.IsSuccessStatusCode)
         {
-            return false;
+            return NFTType.Unspecified;
         }
 
         var streamTask = response.Content.ReadAsStreamAsync();
 
         var waxApiResponse = await JsonSerializer.DeserializeAsync<WaxApiResponse>(await streamTask, cancellationToken: token);
 
-        return waxApiResponse.data.Length != 0;
+        var nfts = waxApiResponse.data;
+
+        if (nfts.Length == 0)
+        {
+            return NFTType.Unspecified;
+        }
+
+        var result = NFTType.Unspecified;
+
+        foreach (var nft in nfts)
+        {
+            if (nft.template.template_id == _settings.CommonTemplate) result = result >= NFTType.Common ? result : NFTType.Common;
+            else if (nft.template.template_id == _settings.RareTemplate) result = result >= NFTType.Rare ? result : NFTType.Rare;
+            else if (nft.template.template_id == _settings.EpicTemplate)
+            {
+                result = NFTType.Epic;
+                break;
+            }
+        }
+
+        return result;
     }
 }

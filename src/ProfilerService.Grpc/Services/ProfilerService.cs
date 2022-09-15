@@ -10,10 +10,10 @@ namespace ProfilerService.Grpc.Services;
 public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
 {
     private readonly IProfileService _service;
-    private readonly IWaxWalletVerifyService _waxWalletVerify;
+    private readonly INFTVerifyService _waxWalletVerify;
     private readonly IMapper _mapper;
 
-    public ProfilerService(IProfileService service, IWaxWalletVerifyService waxWalletVerify, IMapper mapper)
+    public ProfilerService(IProfileService service, INFTVerifyService waxWalletVerify, IMapper mapper)
     {
         _service = service ?? throw new ArgumentNullException(nameof(service));
         _waxWalletVerify = waxWalletVerify ?? throw new ArgumentNullException(nameof(waxWalletVerify));
@@ -120,7 +120,7 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
         var result = _waxWalletVerify.VerifyWaxWallet(profile.WaxWallet, cancellationToken);
         var response = new VerifyNFTResponse();
 
-        response.Status = _mapper.Map<StatusType>(await result);
+        response.Type = _mapper.Map<NFTType>(await result);
 
         return response;
     }

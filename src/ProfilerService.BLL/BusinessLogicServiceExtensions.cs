@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Options;
 using ProfilerService.BLL.BusinessLogic;
 using ProfilerService.BLL.Interfaces;
-using ProfilerService.BLL.Providerc;
+using ProfilerService.BLL.Providers;
 using ProfilerService.BLL.Services;
 using ProfilerService.BLL.Settings;
 using ProfilerService.BLL.Verifiers;
@@ -11,18 +11,18 @@ namespace ProfilerService.BLL;
 
 public static class BusinessLogicServiceExtensions
 {
-    public static IServiceCollection AddWaxWalletVerifier(this IServiceCollection services, WaxWalletVerifierSettings settings = null)
+    public static IServiceCollection AddWaxWalletVerifier(this IServiceCollection services, NFTVerifierSettings settings = null)
     {
         if (settings is null)
         {
-            services.AddSingleton<IWaxWalletVerifierSettings>(sp => sp.GetRequiredService<IOptions<WaxWalletVerifierSettings>>().Value);
+            services.AddSingleton<INFTVerifierSettings>(sp => sp.GetRequiredService<IOptions<NFTVerifierSettings>>().Value);
         }
         else
         {
-            services.AddSingleton<IWaxWalletVerifierSettings>(settings);
+            services.AddSingleton<INFTVerifierSettings>(settings);
         }
-        services.AddScoped<IWaxWalletVerifier, WaxWalletVerifier>();
-        services.AddScoped<IWaxWalletVerifyService, WaxWalletVerifyService>();
+        services.AddScoped<INFTVerifier, NFTVerifier>();
+        services.AddScoped<INFTVerifyService, NFTVerifyService>();
 
         return services;
     }

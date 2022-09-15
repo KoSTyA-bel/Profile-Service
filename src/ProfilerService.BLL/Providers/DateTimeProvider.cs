@@ -1,6 +1,6 @@
 ﻿using ProfilerService.BLL.Interfaces;
 
-namespace ProfilerService.BLL.Providerc;
+namespace ProfilerService.BLL.Providers;
 
 public class DateTimeProvider : IDateTimeProvider
 {

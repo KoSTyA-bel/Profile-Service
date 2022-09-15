@@ -105,7 +105,7 @@ message WithdrawPointsResponse {
 }
 
 message VerifyNFTResponse {
-	StatusType status = 1;
+	NFTType type = 1;
 }
 
 message LinkWaxWalletResponse {
@@ -124,6 +124,13 @@ enum StatusType {
 	STATUS_TYPE_UNSPECIFIED = 0;
 	STATUS_TYPE_SUCCESS = 1;
 	STATUS_TYPE_FAILED = 2;
+}
+
+enum NFTType {
+	NFT_TYPE_UNSPECIFIED = 0;
+	NFT_TYPE_COMMON = 1;
+	NFT_TYPE_RARE = 2;
+	NFT_TYPE_EPIC = 3;
 }
 
 message Profile {

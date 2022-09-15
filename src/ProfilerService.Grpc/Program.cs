@@ -10,8 +10,11 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING") ?? builder.Configuration.GetConnectionString("Data");
 var apiUrl = Environment.GetEnvironmentVariable("API_URL");
 var collectionName = Environment.GetEnvironmentVariable("COLLECTION_NAME");
+var common = Environment.GetEnvironmentVariable("COMMON");
+var rare = Environment.GetEnvironmentVariable("RARE");
+var epic = Environment.GetEnvironmentVariable("EPIC");
 
-builder.Services.Configure<WaxWalletVerifierSettings>(builder.Configuration.GetSection(nameof(WaxWalletVerifierSettings)));
+builder.Services.Configure<NFTVerifierSettings>(builder.Configuration.GetSection(nameof(NFTVerifierSettings)));
 
 builder.Services.AddProfileService();
 builder.Services.AddProfileDataBase(connectionString);
@@ -30,7 +33,7 @@ var app = builder.Build();
 app.MapGrpcService<ProfilerService.Grpc.Services.ProfilerService>();
 app.MapGet("/", () => "Communication with gRPC endpoints must be made through a gRPC client. To learn how to create a client, visit: https://go.microsoft.com/fwlink/?linkid=2086909");
 
-var settings = app.Services.GetService(typeof(WaxWalletVerifierSettings)) as WaxWalletVerifierSettings;
+var settings = app.Services.GetService(typeof(NFTVerifierSettings)) as NFTVerifierSettings;
 
 if (apiUrl is not null)
 {
