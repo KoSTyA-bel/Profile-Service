@@ -51,6 +51,13 @@ public class ProfileService : IProfileService
 
     public Task<Profile> GetByDiscordId(ulong discordId, CancellationToken token) => _provider.GetByDiscordId(discordId, token);
 
+    public async Task<IEnumerable<Profile>> GetLeaderBoard(int count, CancellationToken token)
+    {
+        var profiles = await _provider.GetAllProfiles(token);
+
+        return profiles.OrderByDescending(profile => profile.PointsAmount).Take(count);
+    }
+
     public Task<IEnumerable<Profile>> GetProfiles(int startPosition, int count, CancellationToken token) 
     {
         if (startPosition < 0)
@@ -64,6 +71,20 @@ public class ProfileService : IProfileService
         }
 
         return _provider.GetProfiles(startPosition, count, token); 
+    }
+
+    public async Task<StatusType> ResetPoints(int pointsAmount, CancellationToken token)
+    {
+        var profiles = await _provider.GetAllProfiles(token);
+
+        foreach (var profile in profiles)
+        {
+            profile.PointsAmount = pointsAmount;
+        }
+
+        await _dataContext.SaveChanges(token);
+
+        return StatusType.Success;
     }
 
     public async Task<StatusType> Update(Profile profile, CancellationToken token)

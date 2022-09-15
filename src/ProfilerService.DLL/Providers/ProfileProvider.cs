@@ -17,6 +17,12 @@ public class ProfileProvider : IProfileProvider
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
+    public Task<IEnumerable<Profile>> GetAllProfiles(CancellationToken token)
+    {
+        _logger.LogTrace("Get all profiles");
+        return Task.FromResult((IEnumerable<Profile>)_profiles.ToArray());
+    }
+
     public Task<Profile> GetByDiscordId(ulong discordId, CancellationToken token) 
     {
         _logger.LogTrace("Get profile with discordId={discordId} to database", discordId);

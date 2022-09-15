@@ -23,8 +23,17 @@ service ProfilerService {
 	rpc WithdrawPoints (WithdrawPointsRequest)
 	returns (WithdrawPointsResponse);
 
-	rpc VerifyWaxWallet (VerifyWaxWalletRequest)
-	returns (VerifyWaxWalletResponse);
+	rpc LinkWaxWallet (LinkWaxWalletRequest)
+	returns (LinkWaxWalletResponse);
+
+	rpc VerifyNFT (VerifyNFTRequest)
+	returns (VerifyNFTResponse);
+
+	rpc GetLeaderBoardByPointsAmount (GetLeaderBoardByPointsAmountRequest)
+	returns (GetLeaderBoardByPointsAmountResponse);
+
+	rpc ResetPoints (ResetPointsRequest)
+	returns (ResetPointsResponse);
 }
 
 message GetByDiscordIdRequest {
@@ -46,23 +55,35 @@ message DeleteUserRequest {
 
 message DepositPointsRequest {
 	uint64 discord_id = 1;
-	int32 pointsAmount = 2;
+	int32 points_amount = 2;
 }
 
 message WithdrawPointsRequest {
 	uint64 discord_id = 1;
-	int32 pointsAmount = 2;
+	int32 points_amount = 2;
 }
 
-message VerifyWaxWalletRequest {
-	Profile profile = 1;
+message VerifyNFTRequest {
+	uint64 discord_id = 1;
+}
+
+message LinkWaxWalletRequest {
+	uint64 discord_id = 1;
+	string wax_wallet = 2;
+}
+
+message GetLeaderBoardByPointsAmountRequest {
+	int32 count = 1;
+}
+
+message ResetPointsRequest {
+	int32 points_amount = 1;
 }
 
 message GetByDiscordIdResponse {
 	Profile profile = 1;
 }
 
-// todo refactory
 message GetRangeOfProfilesResponse {
 	repeated Profile profiles = 1;
 }
@@ -83,7 +104,19 @@ message WithdrawPointsResponse {
 	StatusType status = 1;
 }
 
-message VerifyWaxWalletResponse {
+message VerifyNFTResponse {
+	StatusType status = 1;
+}
+
+message LinkWaxWalletResponse {
+	StatusType status = 1;
+}
+
+message GetLeaderBoardByPointsAmountResponse {
+	repeated Profile profiles = 1;
+}
+
+message ResetPointsResponse {
 	StatusType status = 1;
 }
 
@@ -97,7 +130,7 @@ message Profile {
 	string id = 1;
 	uint64 discord_id = 2;
 	string wax_wallet = 3;
-	int32 pointsAmount = 4;
+	int32 points_amount = 4;
 	uint32 win_count = 5; 
 	uint32 lose_count = 6; 
 	string creation_date = 7;

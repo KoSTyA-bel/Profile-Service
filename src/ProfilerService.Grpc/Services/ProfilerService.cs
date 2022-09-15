@@ -2,6 +2,7 @@
 using Grpc.Core;
 using ProfilerService.BLL.Interfaces;
 using Service.Grpc;
+using System.Diagnostics.CodeAnalysis;
 using BusinessModels = ProfilerService.BLL.Entities;
 
 namespace ProfilerService.Grpc.Services;
@@ -94,18 +95,56 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
         return response;
     }
 
-    public override async Task<VerifyWaxWalletResponse> VerifyWaxWallet(VerifyWaxWalletRequest request, ServerCallContext context)
+    public override async Task<LinkWaxWalletResponse> LinkWaxWallet(LinkWaxWalletRequest request, ServerCallContext context)
     {
-        var profile = _mapper.Map<BusinessModels.Profile>(request.Profile);
-        var result = await _waxWalletVerify.VerifyWaxWallet(profile.WaxWallet, context.CancellationToken);
-        var response = new VerifyWaxWalletResponse();
+        var discordId = request.DiscordId;
+        var waxWallet = request.WaxWallet;
+        var cancellationToken = context.CancellationToken;
+        var profile = await _service.GetByDiscordId(discordId, cancellationToken);
 
-        if (result == BusinessModels.StatusType.Success)
-        {
-            await _service.Update(profile, context.CancellationToken);
-        }
+        profile.WaxWallet = waxWallet;
 
-        response.Status = _mapper.Map<StatusType>(result);
+        var result = _service.Update(profile, cancellationToken);
+        var response = new LinkWaxWalletResponse();
+
+        response.Status = _mapper.Map<StatusType>(await result);
+
+        return response;
+    }
+
+    public override async Task<VerifyNFTResponse> VerifyNFT(VerifyNFTRequest request, ServerCallContext context)
+    {
+        var discordId = request.DiscordId;
+        var cancellationToken = context.CancellationToken;
+        var profile = await _service.GetByDiscordId(discordId, cancellationToken);
+        var result = _waxWalletVerify.VerifyWaxWallet(profile.WaxWallet, cancellationToken);
+        var response = new VerifyNFTResponse();
+
+        response.Status = _mapper.Map<StatusType>(await result);
+
+        return response;
+    }
+
+    public override async Task<ResetPointsResponse> ResetPoints(ResetPointsRequest request, ServerCallContext context)
+    {
+        var pointsAmount = request.PointsAmount;
+        var cancellationToken = context.CancellationToken;
+        var result = _service.ResetPoints(pointsAmount, cancellationToken);
+        var response = new ResetPointsResponse();
+
+        response.Status = _mapper.Map<StatusType>(await result);
+
+        return response;
+    }
+
+    public override async Task<GetLeaderBoardByPointsAmountResponse> GetLeaderBoardByPointsAmount(GetLeaderBoardByPointsAmountRequest request, ServerCallContext context)
+    {
+        var count = request.Count;
+        var cancellationToken = context.CancellationToken;
+        var profiles = _service.GetLeaderBoard(count, cancellationToken);
+        var response = new GetLeaderBoardByPointsAmountResponse();
+
+        response.Profiles.AddRange(_mapper.Map<IEnumerable<Service.Grpc.Profile>>(await profiles));
 
         return response;
     }

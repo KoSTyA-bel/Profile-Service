@@ -27,7 +27,7 @@ public class MappingProfile : AutoMapper.Profile
         CreateMap<Profile, Service.Grpc.Profile>()
             .ForMember(dest => dest.DiscordId, opt => opt.MapFrom(src => src.DiscrodId))
             .ForMember(dest => dest.PointsAmount, opt => opt.MapFrom(src => src.PointsAmount))
-            .ForMember(dest => dest.WaxWallet, opt => opt.MapFrom(src => src.WaxWallet))
+            .ForMember(dest => dest.WaxWallet, opt => opt.MapFrom(src => src.WaxWallet ?? string.Empty))
             .ForMember(dest => dest.CreationDate, opt => opt.MapFrom(src => src.CreationDate))
             .ForMember(dest => dest.LoseCount, opt => opt.MapFrom(src => src.LoseCount))
             .ForMember(dest => dest.WinCount, opt => opt.MapFrom(src => src.WinCount))

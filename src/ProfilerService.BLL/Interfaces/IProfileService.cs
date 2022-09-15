@@ -12,11 +12,13 @@ public interface IProfileService
 
     Task<IEnumerable<Profile>> GetProfiles(int startPosition, int count, CancellationToken token);
 
+    Task<IEnumerable<Profile>> GetLeaderBoard(int count, CancellationToken token);
+
     Task<StatusType> Delete(ulong discordId, CancellationToken token);
 
-    // todo return type
-    public Task<StatusType> DepositPoints(ulong discordId, int pointsAmount, CancellationToken token);
+    Task<StatusType> DepositPoints(ulong discordId, int pointsAmount, CancellationToken token);
 
-    // todo return type
-    public Task<StatusType> WithdrawPoints(ulong discordId, int pointsAmount, CancellationToken token);
+    Task<StatusType> WithdrawPoints(ulong discordId, int pointsAmount, CancellationToken token);
+
+    Task<StatusType> ResetPoints(int pointsAmount, CancellationToken token);
 }
