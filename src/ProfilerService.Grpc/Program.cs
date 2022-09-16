@@ -1,9 +1,11 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using ProfilerService.Grpc;
 using ProfilerService.BLL.Settings;
 using ProfilerService.DLL;
 using ProfilerService.BLL;
 using ProfilerService.Grpc.Interceptors;
+using FluentValidation;
+using Service.Grpc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,9 +18,11 @@ var epic = Environment.GetEnvironmentVariable("EPIC");
 
 builder.Services.Configure<NFTVerifierSettings>(builder.Configuration.GetSection(nameof(NFTVerifierSettings)));
 
+builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+
 builder.Services.AddProfileService();
 builder.Services.AddProfileDataBase(connectionString);
-builder.Services.AddWaxWalletVerifier();    
+builder.Services.AddWaxWalletVerifier();
 
 builder.Services.AddGrpc(options =>
 {

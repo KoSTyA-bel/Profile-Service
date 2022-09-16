@@ -13,5 +13,8 @@ public class NFTVerifyService : INFTVerifyService
         _verifyer = verifyer ?? throw new ArgumentNullException(nameof(verifyer));
     }
 
-    public Task<NFTType> VerifyWaxWallet(string waxWallet, CancellationToken token) => _verifyer.VerifyWaxWallet(waxWallet, token);
+    public Task<NFTType> VerifyWaxWallet(string waxWallet, CancellationToken token)
+    {
+        return _verifyer.VerifyWaxWallet(waxWallet, token);
+    }
 }

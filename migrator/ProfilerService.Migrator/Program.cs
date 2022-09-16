@@ -5,7 +5,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ProfilerService.DLL;
 using ProfilerService.DLL.Contexts;
-using ProfilerService.DLL;
 
 var rootCommand = new RootCommand("Migrate database by connection string via EntityFramework");
 var connectionStringSourceOption = new Option<string>("--connection-string-source",
