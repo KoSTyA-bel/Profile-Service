@@ -94,20 +94,34 @@ WithdrawPointsRequest:
 }
 ```
 
-VerifyWaxWalletRequest:
+LinkWaxWalletRequest:
+
+```
+	"discord_id": 000000000000000000,
+	"wax_wallet": "user.wallet"
+```
+
+VerifyNFTRequest:
 
 ```
 {
-	"profile": 
-	{
-		"id": "88861980-1e4c-4a01-b06f-e6eebb47bbf1",
-		"discord_id": 000000000000000000,
-		"wax_wallet": "user.wallet",
-		"points": 0,
-		"win_count": 0,
-		"lose_count": 0,
-		"creation_date": "10.10.2022 19:00:00"
-	}
+	"discord_id": 000000000000000000,
+}
+```
+
+GetLeaderBoardByPointsAmountRequest"
+
+```
+{
+	"count": 10
+}
+```
+
+ResetPointsRequest:
+
+```
+{
+	"points_amount": 0
 }
 ```
 
@@ -189,11 +203,46 @@ WithdrawPointsResponse:
 }
 ```
 
-VerifyWaxWalletResponse:
+LinkWaxWalletResponse:
 
 ```
 {
 	"status": "STATUS_TYPE_SUCCESS"
+}
+```
+
+VerifyNFTResponse:
+
+```
+{
+	"type": "NFT_TYPE_UNSPECIFIED"
+}
+```
+
+GetLeaderBoardByPointsAmountResponse:
+
+```
+{
+	"profiles": [
+		{
+			"id": "88861980-1e4c-4a01-b06f-e6eebb47bbf1",
+			"discord_id": 000000000000000000,
+			"wax_wallet": "user.wallet",
+			"points": 0,
+			"win_count": 0,
+			"lose_count": 0,
+			"creation_date": "10.10.2022 19:00:00"
+		},
+		{
+			"id": "74920362-5y5p-0v12-j20u-x5iigg76kff8",
+			"discord_id": 000000000000000000,
+			"wax_wallet": "user.wallet",
+			"points": 0,
+			"win_count": 0,
+			"lose_count": 0,
+			"creation_date": "11.11.2022 20:00:00"
+		},
+	]
 }
 ```
 
@@ -204,5 +253,16 @@ enum StatusType {
 	STATUS_TYPE_UNSPECIFIED = 0;
 	STATUS_TYPE_SUCCESS = 1;
 	STATUS_TYPE_FAILED = 2;
+}
+```
+
+<h2>NFT type enum</h2>
+
+```
+enum NFTType {
+	NFT_TYPE_UNSPECIFIED = 0;
+	NFT_TYPE_COMMON = 1;
+	NFT_TYPE_RARE = 2;
+	NFT_TYPE_EPIC = 3;
 }
 ```

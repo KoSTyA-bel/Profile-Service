@@ -8,6 +8,6 @@ public class ResetPointsRequestValidator : AbstractValidator<ResetPointsRequest>
 	public ResetPointsRequestValidator()
 	{
 		RuleFor(x => x.PointsAmount)
-			.GreaterThanOrEqualTo(1);
+			.GreaterThanOrEqualTo(0);
 	}
 }

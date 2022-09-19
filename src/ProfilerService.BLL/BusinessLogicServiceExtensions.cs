@@ -11,20 +11,28 @@ namespace ProfilerService.BLL;
 
 public static class BusinessLogicServiceExtensions
 {
-    public static IServiceCollection AddWaxWalletVerifier(this IServiceCollection services, NFTVerifierSettings settings = null)
+    public static IServiceCollection AddWaxWalletVerifier(this IServiceCollection services,
+        (string apiUrl, string collectionName, string commonTemplate, string rareTemplate, string epicTemplate) enviromentVariables)
     {
-        if (settings is null)
-        {
-            services.AddSingleton<INFTVerifierSettings>(sp => sp.GetRequiredService<IOptions<NFTVerifierSettings>>().Value);
-        }
-        else
-        {
-            services.AddSingleton<INFTVerifierSettings>(settings);
-        }
+        services.AddSingleton<INFTVerifierSettings>(GetINFTVerifierSettings);
+
         services.AddScoped<INFTVerifier, NFTVerifier>();
         services.AddScoped<INFTVerifyService, NFTVerifyService>();
 
         return services;
+
+        INFTVerifierSettings GetINFTVerifierSettings(IServiceProvider sp)
+        {
+            var settings = sp.GetRequiredService<IOptions<NFTVerifierSettings>>().Value;
+
+            settings.ApiUrl = enviromentVariables.apiUrl ?? settings.ApiUrl;
+            settings.CollectionName = enviromentVariables.collectionName ?? settings.CollectionName;
+            settings.CommonTemplate = enviromentVariables.commonTemplate ?? settings.CommonTemplate;
+            settings.RareTemplate = enviromentVariables.rareTemplate ?? settings.RareTemplate;
+            settings.EpicTemplate = enviromentVariables.epicTemplate ?? settings.EpicTemplate;
+
+            return settings;
+        }
     }
 
     public static IServiceCollection AddProfileService(this IServiceCollection services)

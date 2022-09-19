@@ -48,8 +48,14 @@ public class NFTVerifier : INFTVerifier
 
         foreach (var nft in nfts)
         {
-            if (nft.template.template_id == _settings.CommonTemplate) result = result >= NFTType.Common ? result : NFTType.Common;
-            else if (nft.template.template_id == _settings.RareTemplate) result = result >= NFTType.Rare ? result : NFTType.Rare;
+            if (nft.template.template_id == _settings.CommonTemplate)
+            {
+                result = result >= NFTType.Common ? result : NFTType.Common;
+            }
+            else if (nft.template.template_id == _settings.RareTemplate)
+            {
+                result = result >= NFTType.Rare ? result : NFTType.Rare;
+            }
             else if (nft.template.template_id == _settings.EpicTemplate)
             {
                 result = NFTType.Epic;

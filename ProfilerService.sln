@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfilerService.Grpc", "src
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfilerService.DLL", "src\ProfilerService.DLL\ProfilerService.DLL.csproj", "{2CB77049-6B7C-4BF7-B58C-B3B1F4BF7560}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfilerService.BLL", "src\ProfilerService.BLL\ProfilerService.BLL.csproj", "{38FD15F2-7402-4D7E-A73E-AC44E8F6E694}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfileService.BLL", "src\ProfilerService.BLL\ProfileService.BLL.csproj", "{38FD15F2-7402-4D7E-A73E-AC44E8F6E694}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{ABC9355B-B7D8-444E-B003-BCB1517EDC85}"
 EndProject
