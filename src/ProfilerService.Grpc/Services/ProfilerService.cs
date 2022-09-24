@@ -44,8 +44,8 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
 
     public override async Task<DepositPointsResponse> DepositPoints(DepositPointsRequest request, ServerCallContext context)
     {
-        ulong discordId = request.DiscordId;
-        int pointsAmount = request.PointsAmount;
+        var discordId = request.DiscordId;
+        var pointsAmount = request.PointsAmount;
         var result = await _service.DepositPoints(discordId, pointsAmount, context.CancellationToken);
         var response = new DepositPointsResponse();
 
@@ -145,6 +145,28 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
         var response = new GetLeaderBoardByPointsAmountResponse();
 
         response.Profiles.AddRange(_mapper.Map<IEnumerable<Service.Grpc.Profile>>(await profiles));
+
+        return response;
+    }
+
+    public override async Task<VerifyNFTInProfilesResponse> VerifyNFTInProfiles(VerifyNFTInProfilesRequest request, ServerCallContext context)
+    {
+        var cancellationToken = context.CancellationToken;
+        var profilesIds = request.DiscrodIds;
+        var profilesWaxWallet = new List<string>();
+
+        foreach (var discordId in profilesIds)
+        {
+            var profile = await _service.GetByDiscordId(discordId, cancellationToken);
+            profilesWaxWallet.Add(profile.WaxWallet);
+        }
+
+        var result = await _waxWalletVerify.VerifyWaxWallets(profilesWaxWallet, cancellationToken);
+
+        var response = new VerifyNFTInProfilesResponse();
+        var mappedResult = _mapper.Map<IEnumerable<NFTType>>(result);
+
+        response.NftTypes.AddRange(mappedResult);
 
         return response;
     }

@@ -29,6 +29,9 @@ service ProfilerService {
 	rpc VerifyNFT (VerifyNFTRequest)
 	returns (VerifyNFTResponse);
 
+    rpc VerifyNFTInProfiles (VerifyNFTInProfilesRequest)
+	returns (VerifyNFTInProfilesResponse);
+
 	rpc GetLeaderBoardByPointsAmount (GetLeaderBoardByPointsAmountRequest)
 	returns (GetLeaderBoardByPointsAmountResponse);
 
@@ -80,6 +83,10 @@ message ResetPointsRequest {
 	int32 points_amount = 1;
 }
 
+message VerifyNFTInProfilesRequest {
+  repeated uint64 discrod_ids = 1;
+}
+
 message GetByDiscordIdResponse {
 	Profile profile = 1;
 }
@@ -118,6 +125,10 @@ message GetLeaderBoardByPointsAmountResponse {
 
 message ResetPointsResponse {
 	StatusType status = 1;
+}
+
+message VerifyNFTInProfilesResponse {
+    repeated NFTType nft_types = 1;
 }
 
 enum StatusType {
