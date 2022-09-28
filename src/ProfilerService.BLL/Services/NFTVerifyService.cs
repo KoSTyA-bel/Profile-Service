@@ -22,11 +22,11 @@ public class NFTVerifyService : INFTVerifyService
     public Task<IEnumerable<NFTType>> VerifyWaxWallets(IEnumerable<string> waxWallets, CancellationToken token)
     {
         var count = waxWallets.Count();
-        var types = new System.Collections.Concurrent.ConcurrentStack<NFTType>();
+        var types = new NFTType[count];
 
         Parallel.For(0, count, i =>
         {
-            types.Push(_verifyer.VerifyWaxWallet(waxWallets.Skip(i).First(), token).GetAwaiter().GetResult());
+            types[i] = (_verifyer.VerifyWaxWallet(waxWallets.Skip(i).First(), token).GetAwaiter().GetResult());
         });
 
         var result = types.ToArray();
