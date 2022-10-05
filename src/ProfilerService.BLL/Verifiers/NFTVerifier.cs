@@ -17,6 +17,11 @@ public class NFTVerifier : INFTVerifier
 
     public async Task<NFTType> VerifyWaxWallet(string waxWallet, CancellationToken token)
     {
+        if (string.IsNullOrEmpty(waxWallet))
+        {
+            return NFTType.Unspecified;
+        }
+
         using var client = new HttpClient();
         var uri = _settings.ApiUrl + "&owner=" + waxWallet + "&collection_name=" + _settings.CollectionName;
 
