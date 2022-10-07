@@ -196,4 +196,17 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
 
         return response;
     }
+
+    public override async Task<ResetBattleResultsResponse> ResetBattleResults(ResetBattleResultsRequest request, ServerCallContext context)
+    {
+        var winCount = request.WinCount;
+        var loseCount = request.LoseCount;
+        var cantellationToken = context.CancellationToken;
+        var result = _service.ResetBattleResults(winCount, loseCount, cantellationToken);
+        var response = new ResetBattleResultsResponse();
+
+        response.Status = _mapper.Map<StatusType>(await result);
+
+        return response;
+    }
 }

@@ -25,4 +25,6 @@ public interface IProfileService
     Task<StatusType> CountVictory(ulong discordId, int pointsAmount, CancellationToken token);
 
     Task<StatusType> CountLose(ulong discordId, int pointsAmount, CancellationToken token);
+
+    Task<StatusType> ResetBattleResults(uint winCount, uint loseCount, CancellationToken token);
 }

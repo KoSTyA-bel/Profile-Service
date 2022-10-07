@@ -43,6 +43,9 @@ service ProfilerService {
     
     rpc CountLose (CountLoseRequest)
     returns (CountLoseResponse);
+
+    rpc ResetBattleResults (ResetBattleResultsRequest)
+    returns (ResetBattleResultsResponse);
 }
 
 message GetByDiscordIdRequest {
@@ -103,6 +106,11 @@ message CountLoseRequest {
     int32 points_amount = 2;
 }
 
+message ResetBattleResultsRequest {
+    uint32 win_count = 1;
+    uint32 lose_count = 2;
+}
+
 message GetByDiscordIdResponse {
 	Profile profile = 1;
 }
@@ -152,6 +160,10 @@ message CountVictoryResponse {
 }
 
 message CountLoseResponse {
+    StatusType status = 1;
+}
+
+message ResetBattleResultsResponse {
     StatusType status = 1;
 }
 

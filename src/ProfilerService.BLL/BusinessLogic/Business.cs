@@ -1,7 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using ProfileService.BLL.Interfaces;
 using ProfileService.BLL.Entities;
-using ProfileService.BLL.Interfaces;
 
 namespace ProfileService.BLL.BusinessLogic;
 
@@ -67,6 +66,26 @@ public class Business : IBattleResultCounter
         {
             profile.PointsAmount = int.MaxValue;
         }
+    }
+
+    public void ResetBattleResult(Profile profile, uint winCount, uint loseCount)
+    {
+        _logger.LogTrace("Reset battle result: win count={win}, lose count={lose}, discordId={profile.DiscordId}", winCount, loseCount, profile.DiscrodId);
+
+        profile.WinCount = winCount;
+        profile.LoseCount = winCount;
+    }
+
+    public void ResetPoints(Profile profile, int pointAmount)
+    {
+        _logger.LogTrace("Reset points amount={win}, discordId={profile.DiscordId}", pointAmount, profile.DiscrodId);
+
+        if (pointAmount < 0)
+        {
+            return;
+        }
+
+        profile.PointsAmount = pointAmount;
     }
 
     public void Withdraw(Profile profile, int pointsAmount)

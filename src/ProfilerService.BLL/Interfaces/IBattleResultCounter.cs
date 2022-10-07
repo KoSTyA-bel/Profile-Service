@@ -10,7 +10,11 @@ namespace ProfileService.BLL.Interfaces
     public interface IBattleResultCounter : IDepositer, IWithdrawer
     {
         public void CountVictory(Profile profile, int pointsAmount);
-
+        
         public void CountLose(Profile profile, int pointsAmount);
+
+        public void ResetBattleResult(Profile profile, uint winCount, uint loseCount);
+
+        public void ResetPoints(Profile profile, int pointAmount);
     }
 }

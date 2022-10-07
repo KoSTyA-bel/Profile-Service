@@ -112,13 +112,27 @@ public class ProfileService : IProfileService
         return _provider.GetProfiles(startPosition, count, token); 
     }
 
+    public async Task<StatusType> ResetBattleResults(uint winCount, uint loseCount, CancellationToken token)
+    {
+        var profiles = await _provider.GetAllProfiles(token);
+
+        foreach (var profile in profiles)
+        {
+            _resultCounter.ResetBattleResult(profile, winCount, loseCount);
+        }
+
+        await _dataContext.SaveChanges(token);
+
+        return StatusType.Success;
+    }
+
     public async Task<StatusType> ResetPoints(int pointsAmount, CancellationToken token)
     {
         var profiles = await _provider.GetAllProfiles(token);
 
         foreach (var profile in profiles)
         {
-            profile.PointsAmount = pointsAmount;
+            _resultCounter.ResetPoints(profile, pointsAmount);
         }
 
         await _dataContext.SaveChanges(token);
