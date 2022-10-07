@@ -1,12 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using ProfileService.BLL.Settings;
-using FluentValidation;
-using Service.Grpc;
+﻿using FluentValidation;
+using Microsoft.EntityFrameworkCore;
 using ProfileService.BLL;
 using ProfileService.DLL;
 using ProfileService.Grpc;
-using ProfileService.Grpc.Interceptors;
 using ProfileService.Grpc.Infrastructure.Configurations;
+using ProfileService.Grpc.Interceptors;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,19 +13,17 @@ var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING") ?
 builder.AddNFTVerifierSettings();
 builder.AddAppSettings();
 
-builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
-
-builder.Services.AddProfileService();
-builder.Services.AddProfileDataBase(connectionString);
-builder.Services.AddWaxWalletVerifier();
-
-builder.Services.AddGrpc(options =>
-{
-    options.Interceptors.Add<ErrorHandlingInterceptor>();
-    options.Interceptors.Add<ValidationInterceptor>();
-});
-
-builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services
+    .AddProfileService()
+    .AddProfileDataBase(connectionString)
+    .AddWaxWalletVerifier()
+    .AddValidatorsFromAssembly(typeof(Program).Assembly)
+    .AddAutoMapper(typeof(MappingProfile))
+    .AddGrpc(options =>
+    {
+        options.Interceptors.Add<ErrorHandlingInterceptor>();
+        options.Interceptors.Add<ValidationInterceptor>();
+    });
 
 var app = builder.Build();
 
