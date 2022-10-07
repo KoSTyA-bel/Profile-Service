@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using ProfilerService.BLL.Entities;
-using ProfilerService.DLL.Configurations;
+using ProfileService.DLL.Configurations;
+using ProfileService.BLL.Entities;
 
-namespace ProfilerService.DLL.Contexts;
+namespace ProfileService.DLL.Contexts;
 
 public class ProfileContext : DbContext
 {

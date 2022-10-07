@@ -21,6 +21,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\src\ProfilerService.DLL\ProfilerService.DLL.csproj" />
+	  <ProjectReference Include="..\..\src\ProfilerService.DLL\ProfileService.DLL.csproj" />
 	</ItemGroup>
 </Project>

@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using ProfilerService.BLL.Entities;
-using ProfilerService.BLL.Interfaces;
-using ProfilerService.DLL.Contexts;
+using ProfileService.DLL.Contexts;
+using ProfileService.BLL.Entities;
+using ProfileService.BLL.Interfaces;
 
-namespace ProfilerService.DLL.Repositories;
+namespace ProfileService.DLL.Repositories;
 
 public class ProfileRepository : IProfileRepository
 {

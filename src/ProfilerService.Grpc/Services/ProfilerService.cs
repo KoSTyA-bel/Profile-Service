@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Grpc.Core;
-using ProfilerService.BLL.Interfaces;
+using ProfileService.BLL.Interfaces;
 using Service.Grpc;
 using System.Diagnostics.CodeAnalysis;
-using BusinessModels = ProfilerService.BLL.Entities;
+using BusinessModels = ProfileService.BLL.Entities;
 
-namespace ProfilerService.Grpc.Services;
+namespace ProfileService.Grpc.Services;
 
 public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
 {
@@ -22,7 +22,7 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
 
     public override async Task<CreateProfileResponse> CreateProfile(CreateProfileRequest request, ServerCallContext context)
     {
-        var profile = _mapper.Map<BusinessModels.Profile>(request);
+        var profile = _mapper.Map<BLL.Entities.Profile>(request);
         var result = await _service.Create(profile, context.CancellationToken);
         var response = new CreateProfileResponse();
 
@@ -69,8 +69,8 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
 
     public override async Task<GetRangeOfProfilesResponse> GetRangeOfProfiles(GetRangeOfProfilesRequest request, ServerCallContext context)
     {
-        int page = request.Page;
-        int pageSize = request.PageSize;
+        var page = request.Page;
+        var pageSize = request.PageSize;
 
         var profiles = await _service.GetProfiles(page, pageSize, context.CancellationToken);
 
@@ -85,8 +85,8 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
 
     public override async Task<WithdrawPointsResponse> WithdrawPoints(WithdrawPointsRequest request, ServerCallContext context)
     {
-        ulong discordId = request.DiscordId;
-        int pointsAmount = request.PointsAmount;
+        var discordId = request.DiscordId;
+        var pointsAmount = request.PointsAmount;
         var result = await _service.WithdrawPoints(discordId, pointsAmount, context.CancellationToken);
         var response = new WithdrawPointsResponse();
 
@@ -167,6 +167,32 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
         var mappedResult = _mapper.Map<IEnumerable<NFTType>>(result);
 
         response.NftTypes.AddRange(mappedResult);
+
+        return response;
+    }
+
+    public override async Task<CountLoseResponse> CountLose(CountLoseRequest request, ServerCallContext context)
+    {
+        var id = request.DiscordId;
+        var pointsAmount = request.PointsAmount;
+        var token = context.CancellationToken;
+        var result = _service.CountLose(id, pointsAmount, token);
+        var response = new CountLoseResponse();
+
+        response.Status = _mapper.Map<StatusType>(await result);
+
+        return response;
+    }
+
+    public override async Task<CountVictoryResponse> CountVictory(CountVictoryRequest request, ServerCallContext context)
+    {
+        var id = request.DiscordId;
+        var pointsAmount = request.PointsAmount;
+        var token = context.CancellationToken;
+        var result = _service.CountVictory(id, pointsAmount, token);
+        var response = new CountVictoryResponse();
+
+        response.Status = _mapper.Map<StatusType>(await result);
 
         return response;
     }

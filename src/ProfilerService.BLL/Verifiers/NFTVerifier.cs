@@ -1,10 +1,10 @@
-﻿using ProfilerService.BLL.Entities;
-using ProfilerService.BLL.Interfaces;
-using ProfilerService.BLL.Settings;
+﻿using ProfileService.BLL.Settings;
+using ProfileService.BLL.Entities;
+using ProfileService.BLL.Interfaces;
 using System.Net.Http.Headers;
 using System.Text.Json;
 
-namespace ProfilerService.BLL.Verifiers;
+namespace ProfileService.BLL.Verifiers;
 
 public class NFTVerifier : INFTVerifier
 {

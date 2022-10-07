@@ -2,7 +2,7 @@
 using Grpc.Core;
 using Grpc.Core.Interceptors;
 
-namespace ProfilerService.Grpc.Interceptors;
+namespace ProfileService.Grpc.Interceptors;
 
 public class ValidationInterceptor : Interceptor
 {

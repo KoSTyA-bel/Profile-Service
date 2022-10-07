@@ -1,9 +1,9 @@
-﻿using ProfilerService.BLL.Entities;
-using ProfilerService.BLL.Interfaces;
-using ProfilerService.BLL.Settings;
+﻿using ProfileService.BLL.Settings;
+using ProfileService.BLL.Entities;
+using ProfileService.BLL.Interfaces;
 using System.Collections.Generic;
 
-namespace ProfilerService.BLL.Services;
+namespace ProfileService.BLL.Services;
 
 public class NFTVerifyService : INFTVerifyService
 {
@@ -26,7 +26,7 @@ public class NFTVerifyService : INFTVerifyService
 
         Parallel.For(0, count, i =>
         {
-            types[i] = (_verifyer.VerifyWaxWallet(waxWallets.Skip(i).First(), token).GetAwaiter().GetResult());
+            types[i] = _verifyer.VerifyWaxWallet(waxWallets.Skip(i).First(), token).GetAwaiter().GetResult();
         });
 
         var result = types.ToArray();

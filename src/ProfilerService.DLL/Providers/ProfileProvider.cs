@@ -1,10 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using ProfilerService.BLL.Entities;
-using ProfilerService.BLL.Interfaces;
-using ProfilerService.DLL.Repositories;
+using ProfileService.DLL.Repositories;
+using ProfileService.BLL.Entities;
+using ProfileService.BLL.Interfaces;
 
-namespace ProfilerService.DLL.Providers;
+namespace ProfileService.DLL.Providers;
 
 public class ProfileProvider : IProfileProvider
 {
@@ -23,7 +23,7 @@ public class ProfileProvider : IProfileProvider
         return Task.FromResult((IEnumerable<Profile>)_profiles.ToArray());
     }
 
-    public Task<Profile> GetByDiscordId(ulong discordId, CancellationToken token) 
+    public Task<Profile> GetByDiscordId(ulong discordId, CancellationToken token)
     {
         _logger.LogTrace("Get profile with discordId={discordId} to database", discordId);
         return _profiles.FirstOrDefaultAsync(x => x.DiscrodId == discordId);

@@ -1,6 +1,6 @@
-﻿using ProfilerService.BLL.Settings;
+﻿using ProfileService.BLL.Settings;
 
-namespace ProfilerService.Grpc.Infrastructure.Configurations;
+namespace ProfileService.Grpc.Infrastructure.Configurations;
 
 public static class NFTVerifierConfiguration
 {
@@ -10,16 +10,5 @@ public static class NFTVerifierConfiguration
         applicationBuilder.Services.Configure<NFTVerifierSettings>(applicationBuilder.Configuration.GetSection("NFTVerifierSettings"));
 
         return applicationBuilder;
-    }
-
-    public static (string, string, string, string, string) AcceptEnvironmentVariablesToNFTVerifierSettings(this WebApplicationBuilder applicationBuilder)
-    {
-        return (
-            applicationBuilder.Configuration.GetValue<string>("ProfileService_ApiUrl"),
-            applicationBuilder.Configuration.GetValue<string>("ProfileService_CollectionName"),
-            applicationBuilder.Configuration.GetValue<string>("ProfileService_CommonTemplate"),
-            applicationBuilder.Configuration.GetValue<string>("ProfileService_RareTemplate"),
-            applicationBuilder.Configuration.GetValue<string>("ProfileService_EpicTemplate")
-        );
     }
 }

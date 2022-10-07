@@ -1,6 +1,6 @@
-﻿using ProfilerService.BLL.Entities;
+﻿using ProfileService.BLL.Entities;
 
-namespace ProfilerService.BLL.Interfaces;
+namespace ProfileService.BLL.Interfaces;
 
 public interface IProfileService
 {
@@ -21,4 +21,8 @@ public interface IProfileService
     Task<StatusType> WithdrawPoints(ulong discordId, int pointsAmount, CancellationToken token);
 
     Task<StatusType> ResetPoints(int pointsAmount, CancellationToken token);
+
+    Task<StatusType> CountVictory(ulong discordId, int pointsAmount, CancellationToken token);
+
+    Task<StatusType> CountLose(ulong discordId, int pointsAmount, CancellationToken token);
 }

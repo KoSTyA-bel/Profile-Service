@@ -1,4 +1,4 @@
-﻿namespace ProfilerService.BLL.Interfaces;
+﻿namespace ProfileService.BLL.Interfaces;
 
 public interface IDataContext
 {

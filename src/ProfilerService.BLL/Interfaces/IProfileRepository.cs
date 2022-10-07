@@ -1,6 +1,6 @@
-﻿using ProfilerService.BLL.Entities;
+﻿using ProfileService.BLL.Entities;
 
-namespace ProfilerService.BLL.Interfaces;
+namespace ProfileService.BLL.Interfaces;
 
 public interface IProfileRepository
 {

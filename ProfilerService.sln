@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfilerService.Grpc", "src\ProfilerService.Grpc\ProfilerService.Grpc.csproj", "{01919936-D03D-435F-BF97-CF3F05D4FA36}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfileService.Grpc", "src\ProfilerService.Grpc\ProfileService.Grpc.csproj", "{01919936-D03D-435F-BF97-CF3F05D4FA36}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfilerService.DLL", "src\ProfilerService.DLL\ProfilerService.DLL.csproj", "{2CB77049-6B7C-4BF7-B58C-B3B1F4BF7560}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfileService.DLL", "src\ProfilerService.DLL\ProfileService.DLL.csproj", "{2CB77049-6B7C-4BF7-B58C-B3B1F4BF7560}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfileService.BLL", "src\ProfilerService.BLL\ProfileService.BLL.csproj", "{38FD15F2-7402-4D7E-A73E-AC44E8F6E694}"
 EndProject
@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{ABC9355B-B7D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "migrator", "migrator", "{EDDAA816-6AA2-4B7F-B5EC-DD4454EA35CA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfilerService.Migrator", "migrator\ProfilerService.Migrator\ProfilerService.Migrator.csproj", "{D092E655-6BF6-4BF9-A25B-D949CE8142C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ProfileService.Migrator", "migrator\ProfilerService.Migrator\ProfileService.Migrator.csproj", "{D092E655-6BF6-4BF9-A25B-D949CE8142C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

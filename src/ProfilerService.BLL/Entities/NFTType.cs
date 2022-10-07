@@ -1,4 +1,4 @@
-﻿namespace ProfilerService.BLL.Entities;
+﻿namespace ProfileService.BLL.Entities;
 
 public enum NFTType
 {

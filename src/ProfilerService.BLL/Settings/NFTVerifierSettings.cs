@@ -1,6 +1,6 @@
-﻿using ProfilerService.BLL.Interfaces;
+﻿using ProfileService.BLL.Interfaces;
 
-namespace ProfilerService.BLL.Settings;
+namespace ProfileService.BLL.Settings;
 
 public class NFTVerifierSettings : INFTVerifierSettings
 {

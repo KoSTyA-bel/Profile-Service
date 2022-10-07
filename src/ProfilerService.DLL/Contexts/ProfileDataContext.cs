@@ -1,6 +1,6 @@
-﻿using ProfilerService.BLL.Interfaces;
+﻿using ProfileService.BLL.Interfaces;
 
-namespace ProfilerService.DLL.Contexts;
+namespace ProfileService.DLL.Contexts;
 
 public class ProfileDataContext : IDataContext
 {
@@ -11,5 +11,8 @@ public class ProfileDataContext : IDataContext
         _profileContext = profileContext ?? throw new ArgumentNullException(nameof(profileContext));
     }
 
-    public Task SaveChanges(CancellationToken token) => _profileContext.SaveChangesAsync(token);
+    public Task SaveChanges(CancellationToken token)
+    {
+        return _profileContext.SaveChangesAsync(token);
+    }
 }

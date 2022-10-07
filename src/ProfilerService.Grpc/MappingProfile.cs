@@ -1,6 +1,6 @@
-﻿using ProfilerService.BLL.Entities;
+﻿using ProfileService.BLL.Entities;
 
-namespace ProfilerService.Grpc;
+namespace ProfileService.Grpc;
 
 public class MappingProfile : AutoMapper.Profile
 {

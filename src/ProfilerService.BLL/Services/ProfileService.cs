@@ -1,25 +1,55 @@
-﻿using ProfilerService.BLL.Entities;
-using ProfilerService.BLL.Interfaces;
+﻿using ProfileService.BLL.Entities;
+using ProfileService.BLL.Interfaces;
 
-namespace ProfilerService.BLL.Services;
+namespace ProfileService.BLL.Services;
 
 public class ProfileService : IProfileService
 {
     private readonly IProfileRepository _repository;
     private readonly IProfileProvider _provider;
     private readonly IDataContext _dataContext;
-    private readonly IWithdrawer _withdrawer;
-    private readonly IDepositer _depositer;
+    private readonly IBattleResultCounter _resultCounter;
     private readonly IDateTimeProvider _timeProvider;
 
-    public ProfileService(IProfileRepository repository, IProfileProvider provider, IDataContext dataContext, IWithdrawer withdrawer, IDepositer depositer, IDateTimeProvider timeProvider)
+    public ProfileService(IProfileRepository repository, IProfileProvider provider, IDataContext dataContext, IBattleResultCounter resultCounter, IDateTimeProvider timeProvider)
     {
         _repository = repository ?? throw new ArgumentNullException(nameof(repository));
         _provider = provider ?? throw new ArgumentNullException(nameof(provider));
         _dataContext = dataContext ?? throw new ArgumentNullException(nameof(dataContext));
-        _withdrawer = withdrawer ?? throw new ArgumentNullException(nameof(withdrawer));
-        _depositer = depositer ?? throw new ArgumentNullException(nameof(depositer));
+        _resultCounter = resultCounter ?? throw new ArgumentNullException(nameof(resultCounter));
         _timeProvider = timeProvider ?? throw new ArgumentNullException(nameof(timeProvider));
+    }
+
+    public async Task<StatusType> CountLose(ulong discordId, int pointsAmount, CancellationToken token)
+    {
+        var profile = await _provider.GetByDiscordId(discordId, token);
+
+        if (profile is null)
+        {
+            return StatusType.Failed;
+        }
+
+        _resultCounter.CountLose(profile, pointsAmount);
+
+        await _dataContext.SaveChanges(token);
+
+        return StatusType.Success;
+    }
+
+    public async Task<StatusType> CountVictory(ulong discordId, int pointsAmount, CancellationToken token)
+    {
+        var profile = await _provider.GetByDiscordId(discordId, token);
+
+        if (profile is null)
+        {
+            return StatusType.Failed;
+        }
+
+        _resultCounter.CountVictory(profile, pointsAmount);
+
+        await _dataContext.SaveChanges(token);
+
+        return StatusType.Success;
     }
 
     public async Task<StatusType> Create(Profile profile, CancellationToken token)
@@ -42,14 +72,22 @@ public class ProfileService : IProfileService
     {
         var profile = await _provider.GetByDiscordId(discordId, token);
 
-        _depositer.Deposit(profile, pointsAmount);
+        if (profile is null)
+        {
+            return StatusType.Failed;
+        }
+
+        _resultCounter.Deposit(profile, pointsAmount);
 
         await _dataContext.SaveChanges(token);
 
         return StatusType.Success;
     }
 
-    public Task<Profile> GetByDiscordId(ulong discordId, CancellationToken token) => _provider.GetByDiscordId(discordId, token);
+    public Task<Profile> GetByDiscordId(ulong discordId, CancellationToken token)
+    {
+        return _provider.GetByDiscordId(discordId, token);
+    }
 
     public async Task<IEnumerable<Profile>> GetLeaderBoard(int count, CancellationToken token)
     {
@@ -58,6 +96,7 @@ public class ProfileService : IProfileService
         return profiles.OrderByDescending(profile => profile.PointsAmount).Take(count);
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0046:Преобразовать в условное выражение", Justification = "<Ожидание>")]
     public Task<IEnumerable<Profile>> GetProfiles(int startPosition, int count, CancellationToken token) 
     {
         if (startPosition < 0)
@@ -105,7 +144,12 @@ public class ProfileService : IProfileService
     {
         var profile = await _provider.GetByDiscordId(discordId, token);
 
-        _withdrawer.Withdraw(profile, pointsAmount);
+        if (profile is null)
+        {
+            return StatusType.Failed;
+        }
+
+        _resultCounter.Withdraw(profile, pointsAmount);
 
         await _dataContext.SaveChanges(token);
 

@@ -3,9 +3,9 @@ using Service.Grpc;
 
 namespace ProfileService.Grpc.Infrastructure.Validators;
 
-public class ResetPointsRequestValidator : AbstractValidator<ResetPointsRequest>
+public class CountVictoryRequestValidator : AbstractValidator<CountVictoryRequest>
 {
-    public ResetPointsRequestValidator()
+    public CountVictoryRequestValidator()
     {
         RuleFor(x => x.PointsAmount)
             .GreaterThanOrEqualTo(0);

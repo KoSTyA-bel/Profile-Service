@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using ProfilerService.BLL.Entities;
 using Npgsql.EntityFrameworkCore;
+using ProfileService.BLL.Entities;
 
-namespace ProfilerService.DLL.Configurations;
+namespace ProfileService.DLL.Configurations;
 
 public class ProfileConfiguration : IEntityTypeConfiguration<Profile>
 {

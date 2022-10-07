@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using ProfilerService.BLL.Interfaces;
-using ProfilerService.DLL.Contexts;
-using ProfilerService.DLL.Providers;
-using ProfilerService.DLL.Repositories;
+using ProfileService.BLL.Interfaces;
+using ProfileService.DLL.Contexts;
+using ProfileService.DLL.Providers;
+using ProfileService.DLL.Repositories;
 
-namespace ProfilerService.DLL;
+namespace ProfileService.DLL;
 
 public static class DataAccessServiceExtension
 {

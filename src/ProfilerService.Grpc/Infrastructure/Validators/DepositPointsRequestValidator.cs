@@ -1,13 +1,13 @@
 ﻿using FluentValidation;
 using Service.Grpc;
 
-namespace ProfilerService.Grpc.Infrastructure.Validators;
+namespace ProfileService.Grpc.Infrastructure.Validators;
 
 public class DepositPointsRequestValidator : AbstractValidator<DepositPointsRequest>
 {
-	public DepositPointsRequestValidator()
-	{
-		RuleFor(x => x.PointsAmount)
-			.GreaterThanOrEqualTo(1);
-	}
+    public DepositPointsRequestValidator()
+    {
+        RuleFor(x => x.PointsAmount)
+            .GreaterThanOrEqualTo(1);
+    }
 }

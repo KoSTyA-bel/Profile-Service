@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace ProfilerService.Grpc.Infrastructure.ValidationRules;
+namespace ProfileService.Grpc.Infrastructure.ValidationRules;
 
 /// <summary>
 /// Validation rule for guid

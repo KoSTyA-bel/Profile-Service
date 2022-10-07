@@ -3,8 +3,8 @@ using AuctionService.DatabaseMigrator.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using ProfilerService.DLL;
-using ProfilerService.DLL.Contexts;
+using ProfileService.DLL;
+using ProfileService.DLL.Contexts;
 
 var rootCommand = new RootCommand("Migrate database by connection string via EntityFramework");
 var connectionStringSourceOption = new Option<string>("--connection-string-source",

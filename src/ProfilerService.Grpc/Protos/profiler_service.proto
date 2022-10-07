@@ -37,6 +37,12 @@ service ProfilerService {
 
 	rpc ResetPoints (ResetPointsRequest)
 	returns (ResetPointsResponse);
+
+    rpc CountVictory (CountVictoryRequest)
+    returns (CountVictoryResponse);
+    
+    rpc CountLose (CountLoseRequest)
+    returns (CountLoseResponse);
 }
 
 message GetByDiscordIdRequest {
@@ -84,7 +90,17 @@ message ResetPointsRequest {
 }
 
 message VerifyNFTInProfilesRequest {
-  repeated uint64 discrod_ids = 1;
+    repeated uint64 discrod_ids = 1;
+}
+
+message CountVictoryRequest {
+    uint64 discord_id = 1;
+    int32 points_amount = 2;
+}
+
+message CountLoseRequest {
+    uint64 discord_id = 1;
+    int32 points_amount = 2;
 }
 
 message GetByDiscordIdResponse {
@@ -129,6 +145,14 @@ message ResetPointsResponse {
 
 message VerifyNFTInProfilesResponse {
     repeated NFTType nft_types = 1;
+}
+
+message CountVictoryResponse {
+    StatusType status = 1;
+}
+
+message CountLoseResponse {
+    StatusType status = 1;
 }
 
 enum StatusType {

@@ -3,8 +3,7 @@
     "ProfilerService.Grpc": {
       "commandName": "Project",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development",
-        "ProfileService_EpicTemplate": "123"
+        "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5209;https://localhost:7231"

@@ -1,4 +1,4 @@
-﻿namespace ProfilerService.Grpc.Infrastructure.Configurations;
+﻿namespace ProfileService.Grpc.Infrastructure.Configurations;
 
 public static partial class AppConfiguration
 {

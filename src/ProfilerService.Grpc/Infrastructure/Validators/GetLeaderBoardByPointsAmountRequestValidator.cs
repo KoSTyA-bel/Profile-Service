@@ -1,13 +1,13 @@
 ﻿using FluentValidation;
 using Service.Grpc;
 
-namespace ProfilerService.Grpc.Infrastructure.Validators;
+namespace ProfileService.Grpc.Infrastructure.Validators;
 
 public class GetLeaderBoardByPointsAmountRequestValidator : AbstractValidator<GetLeaderBoardByPointsAmountRequest>
 {
-	public GetLeaderBoardByPointsAmountRequestValidator()
-	{
-		RuleFor(x => x.Count)
-			.GreaterThanOrEqualTo(1);
-	}
+    public GetLeaderBoardByPointsAmountRequestValidator()
+    {
+        RuleFor(x => x.Count)
+            .GreaterThanOrEqualTo(1);
+    }
 }
