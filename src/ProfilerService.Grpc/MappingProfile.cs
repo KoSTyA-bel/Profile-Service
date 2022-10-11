@@ -20,14 +20,13 @@ public class MappingProfile : AutoMapper.Profile
             .ConvertUsing((x, res) => res = x.ToString());
 
         CreateMap<Service.Grpc.StatusType, StatusType>()
-            .ConvertUsing((x, res) => res = (StatusType)x);
-        CreateMap<StatusType, Service.Grpc.StatusType>()
-            .ConvertUsing((x, res) => res = (Service.Grpc.StatusType)x);
+            .ReverseMap();
 
         CreateMap<Service.Grpc.NFTType, NFTType>()
-            .ConvertUsing((x, res) => res = (NFTType)x);
-        CreateMap<NFTType, Service.Grpc.NFTType>()
-            .ConvertUsing((x, res) => res = (Service.Grpc.NFTType)x);
+            .ReverseMap();
+
+        CreateMap<Service.Grpc.BattleExodus, BattleExodus>()
+            .ReverseMap();
 
         CreateMap<Profile, Service.Grpc.Profile>()
             .ForMember(dest => dest.DiscordId, opt => opt.MapFrom(src => src.DiscrodId))

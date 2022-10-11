@@ -20,32 +20,21 @@ public class ProfileService : IProfileService
         _timeProvider = timeProvider ?? throw new ArgumentNullException(nameof(timeProvider));
     }
 
-    public async Task<StatusType> CountLose(ulong discordId, int pointsAmount, CancellationToken token)
+    public async Task<StatusType> CountBattleResult(ulong discordId, int pointsAmount, BattleExodus exodus, CancellationToken token)
     {
         var profile = await _provider.GetByDiscordId(discordId, token);
 
-        if (profile is null)
+        switch (exodus)
         {
-            return StatusType.Failed;
+            case BattleExodus.Win:
+                _resultCounter.CountVictory(profile, pointsAmount);
+                break;
+            case BattleExodus.Lose:
+                _resultCounter.CountLose(profile, pointsAmount);
+                break;
+            default:
+                return StatusType.Failed;
         }
-
-        _resultCounter.CountLose(profile, pointsAmount);
-
-        await _dataContext.SaveChanges(token);
-
-        return StatusType.Success;
-    }
-
-    public async Task<StatusType> CountVictory(ulong discordId, int pointsAmount, CancellationToken token)
-    {
-        var profile = await _provider.GetByDiscordId(discordId, token);
-
-        if (profile is null)
-        {
-            return StatusType.Failed;
-        }
-
-        _resultCounter.CountVictory(profile, pointsAmount);
 
         await _dataContext.SaveChanges(token);
 

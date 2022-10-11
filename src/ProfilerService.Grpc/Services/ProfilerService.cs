@@ -206,40 +206,6 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
         return response;
     }
 
-    public override async Task<CountLoseResponse> CountLose(CountLoseRequest request, ServerCallContext context)
-    {
-        var id = request.DiscordId;
-        var pointsAmount = request.PointsAmount;
-        var token = context.CancellationToken;
-
-        var result = _service.CountLose(id, pointsAmount, token);
-        var status = _mapper.Map<StatusType>(await result);
-
-        var response = new CountLoseResponse()
-        {
-            Status = status,
-        };
-
-        return response;
-    }
-
-    public override async Task<CountVictoryResponse> CountVictory(CountVictoryRequest request, ServerCallContext context)
-    {
-        var id = request.DiscordId;
-        var pointsAmount = request.PointsAmount;
-        var token = context.CancellationToken;
-
-        var result = _service.CountVictory(id, pointsAmount, token);
-        var status = _mapper.Map<StatusType>(await result);
-
-        var response = new CountVictoryResponse()
-        {
-            Status = status
-        };
-
-        return response;
-    }
-
     public override async Task<ResetBattleResultsResponse> ResetBattleResults(ResetBattleResultsRequest request, ServerCallContext context)
     {
         var winCount = request.WinCount;
@@ -250,6 +216,24 @@ public class ProfilerService : Service.Grpc.ProfilerService.ProfilerServiceBase
         var status = _mapper.Map<StatusType>(await result);
 
         var response = new ResetBattleResultsResponse()
+        {
+            Status = status,
+        };
+
+        return response;
+    }
+
+    public override async Task<CountBattleResultResponse> CountBattleResult(CountBattleResultRequest request, ServerCallContext context)
+    {
+        var discrodId = request.DiscordId;
+        var pointsAmount = request.PointsAmount;
+        var battleExodus = _mapper.Map<BusinessModels.BattleExodus>(request.BattleExodus);
+        var cancellationToken = context.CancellationToken;
+
+        var result = await _service.CountBattleResult(discrodId, pointsAmount, battleExodus, cancellationToken);
+        var status = _mapper.Map<StatusType>(result);
+
+        var response = new CountBattleResultResponse()
         {
             Status = status,
         };

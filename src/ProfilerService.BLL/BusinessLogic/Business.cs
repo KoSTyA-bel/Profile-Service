@@ -97,6 +97,12 @@ public class Business : IBattleResultCounter
             return;
         }
 
+        if (profile.PointsAmount - pointsAmount < 0)
+        {
+            profile.PointsAmount = 0;
+            return;
+        }
+
         profile.PointsAmount -= pointsAmount;
     }
 }

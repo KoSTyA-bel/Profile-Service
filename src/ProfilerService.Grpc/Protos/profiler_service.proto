@@ -38,12 +38,9 @@ service ProfilerService {
 	rpc ResetPoints (ResetPointsRequest)
 	returns (ResetPointsResponse);
 
-    rpc CountVictory (CountVictoryRequest)
-    returns (CountVictoryResponse);
+    rpc CountBattleResult (CountBattleResultRequest)
+    returns (CountBattleResultResponse);
     
-    rpc CountLose (CountLoseRequest)
-    returns (CountLoseResponse);
-
     rpc ResetBattleResults (ResetBattleResultsRequest)
     returns (ResetBattleResultsResponse);
 }
@@ -96,14 +93,10 @@ message VerifyNFTInProfilesRequest {
     repeated uint64 discrod_ids = 1;
 }
 
-message CountVictoryRequest {
+message CountBattleResultRequest {
     uint64 discord_id = 1;
     int32 points_amount = 2;
-}
-
-message CountLoseRequest {
-    uint64 discord_id = 1;
-    int32 points_amount = 2;
+    BattleExodus battle_exodus = 3;
 }
 
 message ResetBattleResultsRequest {
@@ -155,11 +148,7 @@ message VerifyNFTInProfilesResponse {
     repeated NFTType nft_types = 1;
 }
 
-message CountVictoryResponse {
-    StatusType status = 1;
-}
-
-message CountLoseResponse {
+message CountBattleResultResponse {
     StatusType status = 1;
 }
 
@@ -178,6 +167,12 @@ enum NFTType {
 	NFT_TYPE_COMMON = 1;
 	NFT_TYPE_RARE = 2;
 	NFT_TYPE_EPIC = 3;
+}
+
+enum BattleExodus {
+    BATTLE_EXODUS_UNDEFIEND = 0;
+    BATTLE_EXODUS_WIN = 1;
+    BATTLE_EXODUS_LOSE = 2;
 }
 
 message Profile {
